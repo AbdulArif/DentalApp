@@ -1,0 +1,20 @@
+body,
+html {
+  padding: 0;
+  margin: 0;
+  height: 1px;
+  min-height: 100%;
+}
+
+body {
+  display: flex;
+  background: var(--sixth);
+  flex-direction: column;
+  transition: 0.5s ease-in-out;
+}
+
+.main {
+  margin-top: 56px;
+  background: var(--sixth);
+  flex: 1;
+}
