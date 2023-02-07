@@ -18,10 +18,21 @@ export class GlobalLoginComponent implements OnInit {
   }
 
   download() {
-    let pdf = new jsPDF()
+    //let pdf = new jsPDF()
+    // var pdf = new jsPDF("p", "mm", "a4");
+    var pdf = new jsPDF('l', 'mm', [297, 210]);
+
+
+    // var width = pdf.internal.pageSize.getWidth();
+    // var height = pdf.internal.pageSize.getHeight();
+    // var imgData = 'data:image/jpeg;base64,/9j/4AAQSkZJ......';
+    // pdf.addImage(imgData, 'JPEG', 0, 0, width, height);
+    // console.log(width + "........" + height)
+
+
     pdf.html(this.el.nativeElement, {
       callback: (pdf) => {
-        pdf.save("sample.pdf") 
+        pdf.save("sample.pdf")
       }
     })
   }
