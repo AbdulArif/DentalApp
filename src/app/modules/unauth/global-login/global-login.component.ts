@@ -17,23 +17,22 @@ export class GlobalLoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  download() {
-    //let pdf = new jsPDF()
-    // var pdf = new jsPDF("p", "mm", "a4");
-    var pdf = new jsPDF('l', 'mm', [297, 210]);
 
-
-    // var width = pdf.internal.pageSize.getWidth();
-    // var height = pdf.internal.pageSize.getHeight();
-    // var imgData = 'data:image/jpeg;base64,/9j/4AAQSkZJ......';
-    // pdf.addImage(imgData, 'JPEG', 0, 0, width, height);
-    // console.log(width + "........" + height)
-
-
-    pdf.html(this.el.nativeElement, {
-      callback: (pdf) => {
-        pdf.save("sample.pdf")
-      }
+  downloadPdf() {
+    const pdf = new jsPDF();
+    var elementHTML = <HTMLElement>document.querySelector("#parentdiv");
+    pdf.html(elementHTML, {
+      callback: () => {
+        var pageCount = pdf.internal.pages.length
+        for (let i = pageCount; i >= 2; i--) {
+          pdf.deletePage(i)
+        }
+        pdf.save("sample.pdf");
+      },
+      x: 0,
+      y: 0,
+      width: 210,
+      windowWidth: elementHTML.offsetWidth
     })
   }
 
