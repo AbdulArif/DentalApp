@@ -1,21 +1,17 @@
 nav {
-  transition: 0.5s ease-in-out;
-  box-shadow: var(--default-shadow);
-  background-color: var(--first);
- // background-color: blueviolet;
+ // transition: 0.5s ease-in-out;
+ // box-shadow: var(--default-shadow);
+  background-color: blueviolet;
+  //height: 54px;
+  //background-color: var(--first);
 }
-
-
-nav .navbar-brand {
-  //color: var(--text-color);
-  color: black;
-  transition: 0.5s ease-in-out;
-  font-family: 'Play', sans-serif;
-}
-
-.nav-item .nav-link {
- // color: var(--text-color);
-  color: blue;
-  transition: 0.5s ease-in-out;
-  font-family: 'Play', sans-serif;
-}
+// nav .navbar-brand {
+//   color: var(--text-color);
+//   transition: 0.5s ease-in-out;
+//   font-family: 'Play', sans-serif;
+// }
+// .nav-item .nav-link {
+//   color: var(--text-color);
+//   transition: 0.5s ease-in-out;
+//   font-family: 'Play', sans-serif;
+// }
