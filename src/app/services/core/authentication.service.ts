@@ -5,7 +5,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 //import { LoginBindingModel, User } from 'src/app/models/account/account.model';
 import { environment } from 'src/environments/environment';
-import { LoginBindingModel, User } from '../models/account/account.model';
+import { LoginBindingModel, User } from '../../models/account/account.model';
 
 @Injectable({
   providedIn: 'root'
