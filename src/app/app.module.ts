@@ -9,6 +9,8 @@ import { ThemeService } from './theme/theme.service';
 import { AuthenticationService } from './services/core/authentication.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { SystemThemeService } from './theme/system-theme.service';
+import { ReactiveFormsModule } from '@angular/forms';
+
 
 
 @NgModule({
@@ -19,7 +21,8 @@ import { SystemThemeService } from './theme/system-theme.service';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
    // ToastrModule.forRoot()
   ],
   providers: [

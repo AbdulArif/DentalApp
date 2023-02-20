@@ -1,3 +1,4 @@
+import { ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -13,7 +14,8 @@ import { UnauthSharedModule } from "./unauth-shared/unauth-shared.module";
     imports: [
         CommonModule,
         UnauthRoutingModule,
-        UnauthSharedModule
+        UnauthSharedModule,
+        ReactiveFormsModule
     ]
 })
 export class UnauthModule { }

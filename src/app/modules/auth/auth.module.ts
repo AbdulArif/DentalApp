@@ -3,19 +3,19 @@ import { CommonModule } from '@angular/common';
 
 import { AuthRoutingModule } from './auth-routing.module';
 import { AuthComponent } from './auth.component';
-import { UnauthSharedModule } from "../unauth/unauth-shared/unauth-shared.module";
 import { PrescriptionComponent } from './prescription/prescription.component';
+import { AuthSharedModule } from "./auth-shared/auth-shared.module";
 
 
 @NgModule({
     declarations: [
         AuthComponent,
-        PrescriptionComponent
+        //PrescriptionComponent
     ],
     imports: [
         CommonModule,
         AuthRoutingModule,
-        UnauthSharedModule
+        AuthSharedModule
     ]
 })
 export class AuthModule { }
