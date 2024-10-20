@@ -41,7 +41,6 @@ export class AppComponent implements OnInit {
         let token = localStorage.getItem('currentUser');
 
         if (token == undefined || token == null) {
-          // window.location.href = 'http://localhost:4200/login'
           window.location.reload();
           this.router.navigate(['/login']);
         }

@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  apiUrl: "https://localhost:44320"
-  // apiUrl: "https://ironmanapi.azurewebsites.net"
+  // apiUrl: "https://localhost:44320"
+  apiUrl: "https://ironmanapi.azurewebsites.net"
 };
 
 /*
