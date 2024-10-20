@@ -45,7 +45,7 @@ export class LoginComponent implements OnInit {
 
   get f() { return this.loginForm.controls; }
 
-  onSubmit(): void {
+  async onSubmit(): Promise<void> {
     this.loginForm_loading = true;
     if (this.loginForm.invalid) {
       this.loginForm_loading = false;
@@ -55,19 +55,38 @@ export class LoginComponent implements OnInit {
     this.loginForm.patchValue({
       loginDateTime: new Date().toISOString()
     })
-    this.authenticationService.login(this.loginForm.value).pipe(first()).subscribe(
-      {
-        next: (data) => {
-          console.log(data)
-          this.loginForm_loading = false;
-          this.router.navigate(['auth']);
-        },
-        error: (error) => {
-          this.loginForm_loading = false;
-         // this.toastr.error(error.error, 'Error', { positionClass: 'toast-bottom-right', closeButton: true, progressBar: true, progressAnimation: 'decreasing' });
-        }
-      }
-    );
+    try {
+      // Await the login service response
+      const data = await this.authenticationService.login(this.loginForm.value);
+      console.log('Login successful:', data);
+      this.loginForm_loading = false;
+      // Navigate to /auth page after successful login
+      await this.router.navigate(['auth']);
+    } catch (error) {
+      console.error('Login failed:', error);
+      this.loginForm_loading = false;
+
+      // Uncomment toastr if needed for error feedback
+      // this.toastr.error(error.error, 'Error', { positionClass: 'toast-bottom-right', closeButton: true, progressBar: true, progressAnimation: 'decreasing' });
+    }
+    // this.authenticationService.login(this.loginForm.value).pipe(first()).subscribe(
+    //   {
+    //     next: (data) => {
+    //       console.log(data)
+    //       this.loginForm_loading = false;
+    //       //this.router.navigate(['auth']);
+    //       this.router.navigate(['auth']).then(navigationSuccess=>{
+    //         if(!navigationSuccess){
+    //           console.error('Navigation to /auth failed!');
+    //         }
+    //       })
+    //     },
+    //     error: (error) => {
+    //       this.loginForm_loading = false;
+    //      // this.toastr.error(error.error, 'Error', { positionClass: 'toast-bottom-right', closeButton: true, progressBar: true, progressAnimation: 'decreasing' });
+    //     }
+    //   }
+    // );
   }
 
   toggleFieldTextType() {

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, lastValueFrom, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 //import { LoginBindingModel, User } from 'src/app/models/account/account.model';
 import { environment } from 'src/environments/environment';
@@ -43,15 +43,32 @@ export class AuthenticationService {
       }));
   }
 
-  login(model: LoginBindingModel) {
-    return this.http.post(`${environment.apiUrl}/api/Account/Login`, model)
-      .pipe(map((user: any) => {
-        localStorage.setItem('currentUser', JSON.stringify(user));
-        this.currentUserSubject.next(user);
-        this.decodeJwt(user.token);
-        return user;
-      }));
-  }
+  // login(model: LoginBindingModel) {
+  //   return this.http.post(`${environment.apiUrl}/api/Account/Login`, model)
+  //     .pipe(map((user: any) => {
+  //       localStorage.setItem('currentUser', JSON.stringify(user));
+  //       this.currentUserSubject.next(user);
+  //       this.decodeJwt(user.token);
+  //       return user;
+  //     }));
+  // }
+  login(model: LoginBindingModel): Promise<any> {
+    return lastValueFrom(
+      this.http.post(`${environment.apiUrl}/api/Account/Login`, model)
+        .pipe(map((user: any) => {
+          // Save user to local storage
+          localStorage.setItem('currentUser', JSON.stringify(user));
+          console.log(user)
+          // Update currentUserSubject
+          this.currentUserSubject.next(user);
+
+          // Decode the JWT token
+          this.decodeJwt(user.accessToken);
+
+          return user;
+        }))
+    );
+}
 
   refresh_token(): Observable<any> {
     let refreshTokenRequest: any = {
@@ -70,6 +87,7 @@ export class AuthenticationService {
   }
 
   decodeJwt(token: string) {
+    // console.log(token)
     var base64Url = token.split('.')[1];
     var base64 = base64Url.replace('-', '+').replace('_', '/');
     var jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
