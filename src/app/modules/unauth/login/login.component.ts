@@ -55,9 +55,10 @@ export class LoginComponent implements OnInit {
     this.loginForm.patchValue({
       loginDateTime: new Date().toISOString()
     })
-    this.authenticationService.globalLogin(this.loginForm.value).pipe(first()).subscribe(
+    this.authenticationService.login(this.loginForm.value).pipe(first()).subscribe(
       {
         next: (data) => {
+          console.log(data)
           this.loginForm_loading = false;
           this.router.navigate(['auth']);
         },
