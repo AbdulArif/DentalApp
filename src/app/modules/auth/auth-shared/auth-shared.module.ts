@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { SidebarToggleComponent } from './sidebar-toggle/sidebar-toggle.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { HeaderComponent } from './header/header.component';
+// import { OverlayPanelModule } from 'primeng/overlaypanel';
 
 
 
@@ -12,7 +13,9 @@ import { HeaderComponent } from './header/header.component';
   declarations: [
     HeaderComponent,
     SidebarComponent,
-    SidebarToggleComponent
+    SidebarToggleComponent,
+    // ToDoComponent,
+    // SharePointComponent
   ],
   imports: [
     CommonModule,
@@ -21,7 +24,7 @@ import { HeaderComponent } from './header/header.component';
     //ButtonModule,
     //OnlineStatusModule,
     FormsModule,
-    //OverlayPanelModule
+    // OverlayPanelModule
   ],
   exports: [
      HeaderComponent,
