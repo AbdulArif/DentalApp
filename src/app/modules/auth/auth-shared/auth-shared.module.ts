@@ -4,13 +4,18 @@ import { ButtonModule } from 'primeng/button';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SidebarToggleComponent } from './sidebar-toggle/sidebar-toggle.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { HeaderComponent } from './header/header.component';
 // import { ConfirmationService } from 'primeng/api';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { RippleModule } from 'primeng/ripple';
+import { ConfirmPopupModule } from 'primeng/confirmpopup';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService } from 'primeng/api';
+import { TooltipModule } from 'primeng/tooltip';
+import { TableModule } from 'primeng/table';
 
 
 
@@ -29,13 +34,18 @@ import { RippleModule } from 'primeng/ripple';
     ButtonModule,
     //OnlineStatusModule,
     FormsModule,
-    OverlayPanelModule
+    OverlayPanelModule,
+    ConfirmPopupModule,
+    ReactiveFormsModule,
+    TableModule,
+    ConfirmDialogModule,
+    TooltipModule
   ],
   exports: [
      HeaderComponent,
      SidebarComponent,
      SidebarToggleComponent
   ],
-  // providers: [ConfirmationService, DialogService]
+  providers: [ConfirmationService]
 })
 export class AuthSharedModule { }
