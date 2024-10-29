@@ -11,7 +11,7 @@ import { ThemeService } from 'src/app/theme/theme.service';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-  companyName!: string;
+  clinicName!: string;
   userId!: string
   userEmail!: string
 
@@ -35,7 +35,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     this.userId = this.authenticationService.currentUserId();
     this.userEmail = this.authenticationService.currentUserName();
-    this.companyName = this.authenticationService.companyName();
+    this.clinicName = this.authenticationService.clinicName();
   }
   toggleSidebar() {
     this.sidebarService.toggleSidebar();
