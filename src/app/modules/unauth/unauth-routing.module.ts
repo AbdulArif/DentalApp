@@ -15,7 +15,7 @@ const routes: Routes = [
       { path: 'contact', loadChildren: () => import("./developer-info/developer-info.module").then(m => m.DeveloperInfoModule) },
       // { path: 'email-confirmation', loadChildren: () => import("./email-confirmation/email-confirmation.module").then(m => m.EmailConfirmationModule) },
       // { path: 'forgot-password', loadChildren: () => import("./forgot-password/forgot-password.module").then(m => m.ForgotPasswordModule) },
-      // { path: 'reset-password', loadChildren: () => import("./reset-password/reset-password.module").then(m => m.ResetPasswordModule) }
+      { path: 'reset-password', loadChildren: () => import("./reset-password/reset-password.module").then(m => m.ResetPasswordModule) }
     ]
   }
 ];
