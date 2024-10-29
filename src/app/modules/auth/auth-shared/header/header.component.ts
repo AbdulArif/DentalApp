@@ -37,7 +37,9 @@ export class HeaderComponent implements OnInit {
     this.userEmail = this.authenticationService.currentUserName();
     this.companyName = this.authenticationService.companyName();
   }
-
+  toggleSidebar() {
+    this.sidebarService.toggleSidebar();
+  }
   logOut() {
     this.authenticationService.logOut();
   }
