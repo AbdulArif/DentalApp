@@ -1,6 +1,8 @@
 body {
     min-height: calc(100vh - 56px);
-    background-color: var(--sixth);
+    background: url('img.jpg');
+    background-size: cover;
+    background-position: center;
     transition: 0.5s ease-in-out;
     display: flex;
     justify-content: center;
@@ -9,7 +11,18 @@ body {
 
 
 .card {
-    box-shadow: var(--primary-shadow);
-    transition: 0.5s ease-in-out;
-    font-family: 'Play', sans-serif;
+    background-color: white;
+    padding: 30px;
+    border-radius: 20px;
+    background: transparent;
+    backdrop-filter: blur(20px);
 }
+
+.input-group input{
+   background: transparent;
+}
+
+.form-control input{
+   background: transparent;
+}
+
