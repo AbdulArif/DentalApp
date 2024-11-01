@@ -117,7 +117,7 @@ export class AuthenticationService {
   parentId() {
     return this.decodeJwt(JSON.parse(localStorage.getItem('currentUser')!).token).parentId;
   }
-  companyName() {
-    return this.decodeJwt(JSON.parse(localStorage.getItem('currentUser')!).token).companyName;
+  clinicName() {
+    return this.decodeJwt(JSON.parse(localStorage.getItem('currentUser')!).token).clinicName;
   }
 }

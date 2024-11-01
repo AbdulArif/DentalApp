@@ -1,5 +1,60 @@
-<p>header works!</p>
+<nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top py-1 border-bottom border-secondary">
+  <div class="container-fluid">
+    <div (click)="toggleSidebar()" type="button" class="d-flex justify-content-center align-items-center me-3">
+      <i class="bi bi-list fs-4"></i>
+    </div>
+    <a class="navbar-brand" routerLink="./home">
+      <img [src]="companyLogoUrl" alt="" width="30" height="30"
+        class="d-inline-block align-text-top me-2 rounded-circle shadow-none hide">
+    </a>
+    <ul class="navbar-nav me-auto center mb-2 mb-lg-0">
+      <li class="nav-item fs-5">
+        <a class="nav-link" aria-current="page">
+          {{clinicName}}
+        </a>
+      </li>
+    </ul>
+    <div class="d-flex" role="search">
+      <ul class="navbar-nav d-flex align-items-center w-100">
+        <li class="nav-item dropdown ms-auto" *ngIf="clinicName">
+          <div type="button" id="profile-image"
+            class="d-flex align-items-center rounded-pill border border-secondary bg-body" data-bs-toggle="dropdown"
+            aria-expanded="false" data-bs-auto-close="outside">
+            <div class="me-1 hide">
+              {{userName}}
+            </div>
+            <img [src]="imageUrl" width="31px" height="31px" class="rounded-circle p-0">
+          </div>
 
-<button class="btn btn-sm btn-warning rounded-pill shadow-sm w-100" (click)="logOut()">
-    <i class="bi bi-box-arrow-right me-2"></i>Logout
-  </button>
+
+          <div class="dropdown-menu dropdown-menu-end p-2">
+            <div class="profile-area p-4">
+              <div class="row">
+                <div class="col-12 d-flex justify-content-center" id="user-profile">
+                  <img id="profile-image" [src]="imageUrl" alt="mdo" width="50px" height="50px"
+                    class="rounded-circle p-0">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12 d-flex justify-content-center text-nowrap">
+                  {{userName}} ({{role}})
+                </div>
+              </div>
+              <div class="row mb-2">
+                <div class="col-12 d-flex justify-content-center text-nowrap">
+                </div>
+              </div>
+              <button class="btn btn-sm btn-primary rounded-pill shadow-sm w-100 text-nowrap" routerLink="my-profile"><i
+                  class="bi bi-gear-wide-connected me-2"></i>User
+                Settings</button>
+              <hr class="dropdown-divider">
+              <button class="btn btn-sm btn-warning rounded-pill shadow-sm w-100" (click)="logOut()">
+                <i class="bi bi-box-arrow-right me-2"></i>Logout
+              </button>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
