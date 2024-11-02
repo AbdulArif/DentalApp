@@ -1,17 +1,15 @@
-body {
-    min-height: calc(100vh - 56px);
-    background: url('img1.jpg');
-    background-size: cover;
-    background-position: center;
-    transition: 0.5s ease-in-out;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+// body {
+//     min-height: calc(100vh - 56px);
+//     transition: 0.5s ease-in-out;
+ //     display: flex;
+//     justify-content: center;
+//    align-items: center;
+// }
 
 form{
-    padding: 20px;
+    margin: 50px;
     border-radius: 20px;
     background: transparent;
     backdrop-filter: blur(20px);
+    height: 80%;
 }
