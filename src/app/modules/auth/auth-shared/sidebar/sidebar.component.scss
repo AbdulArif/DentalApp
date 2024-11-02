@@ -1,0 +1,72 @@
+#menu-area {
+    height: calc(100vh - 101px);
+    overflow-y: auto;
+  }
+  
+  #sidebar {
+    width: 250px;
+    position: fixed;
+    height: calc(100vh - 40px);
+    background-color: var(--first);
+    color: var(--color);
+    transition: 0.5s ease-in-out;
+    z-index: 999;
+  }
+  ul li a {
+  
+    color: var(--color);
+    transition: 0.5s ease-in-out;
+  }
+  
+  #sidebar ul li a:hover {
+    transition: 0.5s ease-in-out;
+    // background: var(--third);
+    color: black;
+    background-color: #D1D1D1;
+    border-radius: 5px;
+  }
+  
+  #sidebar ul li a.active {
+    transition: 0.5s ease-in-out;
+    // background-color: var(--third);
+    color: white;
+    background-color: #9E9E9E;
+    border-radius: 5px;
+  
+  }
+  
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    transition: 0.5s ease-in-out;
+    background: var(--second);
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10rem;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: #888;
+    border-radius: 10rem;
+  }
+  
+  .nav-lnk[aria-expanded="true"] .toggle-caret {
+    transform: rotate(-180deg);
+    color: var(--text-color);
+    transition: 0.5s ease-in-out;
+  }
+  
+  .nav-lnk[aria-expanded="false"] .toggle-caret {
+    color: var(--text-color);
+    transition: 0.5s ease-in-out;
+  }
+  
+  @media screen and (max-width: 576px) {
+    #sidebar {
+      margin-top: 30px;
+    }
+  }
