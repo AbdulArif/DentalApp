@@ -10,7 +10,6 @@ import { AuthSharedModule } from "./auth-shared/auth-shared.module";
 @NgModule({
     declarations: [
         AuthComponent,
-        //PrescriptionComponent
     ],
     imports: [
         CommonModule,
