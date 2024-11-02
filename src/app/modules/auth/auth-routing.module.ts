@@ -8,7 +8,6 @@ const routes: Routes = [
     component: AuthComponent,
     children: [
       { path: '', pathMatch: 'full', redirectTo: 'home' },
-      // { path: '', pathMatch: 'full', redirectTo: 'prescription' },
       { path: 'home', loadChildren: () => import("./home/home.module").then(m => m.HomeModule) },
       { path: 'prescription', loadChildren: () => import("./prescription/prescription.module").then(m => m.PrescriptionModule) },
       //{ path: 'dashboard', loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule) },
