@@ -1,82 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
 
-  <body>
-    <div
-      class="card text-center"
-      style="width: 350px"
-      [formGroup]="loginForm"
-      (ngSubmit)="onSubmit()"
-    >
-      <div class="card-header fw-bolder">Login</div>
-      <div class="card-body">
-        <form>
-          <div class="mb-3">
-            <input
-              class="form-control form-control-sm shadow-sm"
-              type="email"
-              placeholder="Email"
-              aria-label="email"
-              formControlName="email"
-              [ngClass]="{
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+</head>
+
+<body>
+  <div class="card text-center" style="width: 350px" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <div class="card-header fw-bolder">Login</div>
+    <div class="card-body">
+      <form>
+        <div class="mb-3">
+          <input class="form-control form-control-sm shadow-sm" type="email" placeholder="Email" aria-label="email"
+            formControlName="email" [ngClass]="{
                 'is-invalid': f['email'].touched && f['email'].errors
-              }"
-            />
-          </div>
-          <div class="input-group input-group-sm mb-3">
-            <input
-              class="form-control form-control-sm shadow-sm"
-              [type]="fieldToggleService.fieldTextType ? 'text' : 'password'"
-              placeholder="Password"
-              aria-label="password"
-              formControlName="password"
-              [ngClass]="{
+              }" />
+        </div>
+        <div class="input-group input-group-sm mb-3">
+          <input class="form-control form-control-sm shadow-sm"
+            [type]="fieldToggleService.fieldTextType ? 'text' : 'password'" placeholder="Password" aria-label="password"
+            formControlName="password" [ngClass]="{
                 'is-invalid': f['password'].touched && f['password'].errors
-              }"
-            />
-            <span
-              class="input-group-text"
-              id="basic-addon2"
-              (click)="toggleFieldTextType()"
-              style="cursor: pointer"
-            >
-              <i
-                class="bi"
-                [ngClass]="{
+              }" />
+          <span class="input-group-text" id="basic-addon2" (click)="toggleFieldTextType()" style="cursor: pointer">
+            <i class="bi" [ngClass]="{
                   'bi-eye-slash': !fieldToggleService.fieldTextType,
                   'bi-eye': fieldToggleService.fieldTextType
-                }"
-              ></i>
-            </span>
-          </div>
-          <div class="mb-3">
-            <button [disabled]="loginForm.invalid"
-              class="btn btn-primary btn-sm btn-block shadow-sm w-100"
-              type="submit"
-            >
-              <div *ngIf="!loginForm_loading">
-                <i class="bi bi-box-arrow-in-right me-2"></i>Login
-              </div>
-              <div
-                *ngIf="loginForm_loading"
-                class="spinner-border spinner-border-sm"
-                role="status"
-              >
-                <span class="visually-hidden">Loading...</span>
-              </div>
-            </button>
-          </div>
-        </form>
-      </div>
+                }"></i>
+          </span>
+        </div>
+        <div class="mb-3">
+          <button [disabled]="loginForm.invalid" class="btn btn-primary btn-sm btn-block shadow-sm w-100" type="submit">
+            <div *ngIf="!loginForm_loading">
+              <i class="bi bi-box-arrow-in-right me-2"></i>Login
+            </div>
+            <div *ngIf="loginForm_loading" class="spinner-border spinner-border-sm" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </button>
+        </div>
+      </form>
     </div>
+  </div>
 
-    <!-- <div class="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+  <!-- <div class="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
     <div class="w-full max-w-md space-y-8">
       <div>
         <img class="mx-auto h-28 w-28" src="https://cdn-icons-png.flaticon.com/512/9193/9193824.png" alt="Your Company">
@@ -131,5 +101,6 @@
       </form>
     </div>
   </div> -->
-  </body>
+</body>
+
 </html>
