@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
     private formBuilder: UntypedFormBuilder,
     private authenticationService: AuthenticationService,
     private router: Router,
-    // private toastr: ToastrService,
+    private toastr: ToastrService,
     public fieldToggleService: FieldToggleService,
     private windowNavigatorService: WindowNavigatorService
   ) {
@@ -51,7 +51,7 @@ export class LoginComponent implements OnInit {
     this.loginForm_loading = true;
     if (this.loginForm.invalid) {
       this.loginForm_loading = false;
-      // this.toastr.warning('Fill all the required fields!.', 'Warning', { positionClass: 'toast-bottom-right', closeButton: true, progressBar: true, progressAnimation: 'decreasing' });
+      this.toastr.warning('Fill all the required fields!.', 'Warning', { positionClass: 'toast-bottom-right', closeButton: true, progressBar: true, progressAnimation: 'decreasing' });
       return;
     }
     this.loginForm.patchValue({
@@ -64,12 +64,12 @@ export class LoginComponent implements OnInit {
       this.loginForm_loading = false;
       // Navigate to /auth page after successful login
       await this.router.navigate(['auth']);
-    } catch (error) {
+    } catch (error: any) {
       console.error('Login failed:', error);
       this.loginForm_loading = false;
 
       // Uncomment toastr if needed for error feedback
-      // this.toastr.error("error.error", 'Error', { positionClass: 'toast-bottom-right', closeButton: true, progressBar: true, progressAnimation: 'decreasing' });
+      this.toastr.error(error.error, 'Error', { positionClass: 'toast-bottom-right', closeButton: true, progressBar: true, progressAnimation: 'decreasing' });
     }
     // this.authenticationService.login(this.loginForm.value).pipe(first()).subscribe(
     //   {

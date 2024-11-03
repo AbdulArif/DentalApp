@@ -58,7 +58,7 @@ export class AuthenticationService {
         .pipe(map((user: any) => {
           // Save user to local storage
           localStorage.setItem('currentUser', JSON.stringify(user));
-          console.log(user)
+          // console.log(user)
           // Update currentUserSubject
           this.currentUserSubject.next(user);
 
