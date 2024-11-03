@@ -1,0 +1,28 @@
+.content {
+    background-color: var(--third);
+    transition: 0.5s ease-in-out;
+    min-height: calc(100vh - 48px);
+    padding-top: 0.85rem;
+    padding-bottom: 0.85rem;
+}
+
+:host ::ng-deep {
+
+    .p-datatable-header,
+    .p-datatable-footer,
+    .p-sortable-column,
+    .p-editable-column,
+    .p-datatable-thead,
+    .p-datatable-tbody,
+    .p-datatable-tfoot {
+        background-color: #edf5ff;
+    }
+
+    .p-paginator {
+        background: #edf5ff;
+
+        .p-paginator-current {
+            margin-left: auto;
+        }
+    }
+}
