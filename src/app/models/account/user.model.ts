@@ -1,7 +1,7 @@
 export class CreateUserBindingModel {
     clinicId!: string;
     parentId!: string;
-    companyName!: string;
+    clinicName!: string;
     firstName!: string;
     lastName!: string;
     email!: string;
