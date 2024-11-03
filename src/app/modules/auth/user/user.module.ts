@@ -10,6 +10,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { ContextMenuModule } from 'primeng/contextmenu';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { DialogModule } from 'primeng/dialog';
+import { PopoverModule } from 'ngx-bootstrap/popover';
 
 
 @NgModule({
@@ -26,7 +27,7 @@ import { DialogModule } from 'primeng/dialog';
     DialogModule,
     TooltipModule,
     FormsModule,
-    // PopoverModule.forRoot()
+    PopoverModule.forRoot()
   ],
   providers: [Title]
 })
