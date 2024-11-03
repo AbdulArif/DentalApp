@@ -17,7 +17,7 @@ export class User {
   }
   
   export class RegisterBindingModel {
-    companyId!: string
+    clinicId!: string
     companyName!: string;
     firstName!: string;
     lastName!: string;

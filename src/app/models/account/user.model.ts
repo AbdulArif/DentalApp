@@ -1,5 +1,5 @@
 export class CreateUserBindingModel {
-    companyId!: string;
+    clinicId!: string;
     parentId!: string;
     companyName!: string;
     firstName!: string;
@@ -16,7 +16,7 @@ export class CreateUserBindingModel {
 
 export class UpdateUserBindingModel {
     UserId!: string;
-    CompanyId!: string;
+    clinicId!: string;
     ParentId!: string;
     FirstName!: string;
     LastName!: string;

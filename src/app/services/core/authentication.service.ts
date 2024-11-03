@@ -124,8 +124,8 @@ export class AuthenticationService {
   currentUserRole() {
     return this.decodeJwt(JSON.parse(localStorage.getItem('currentUser')!).token)["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
   }
-  companyId() {
-    return this.decodeJwt(JSON.parse(localStorage.getItem('currentUser')!).token).companyId;
+  clinicId() {
+    return this.decodeJwt(JSON.parse(localStorage.getItem('currentUser')!).token).clinicId;
   }
   parentId() {
     return this.decodeJwt(JSON.parse(localStorage.getItem('currentUser')!).token).parentId;

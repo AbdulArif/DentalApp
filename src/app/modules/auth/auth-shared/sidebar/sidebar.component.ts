@@ -66,7 +66,7 @@ export class SidebarComponent implements OnInit {
     private sidebarService: SidebarService,
     // private shareSideMenuService: ShareSideMenuService
   ) { 
-    this.clinicId = authenticationService.companyId()
+    this.clinicId = authenticationService.clinicId()
     this.userId = authenticationService.currentUserId()
   }
 
