@@ -9,10 +9,10 @@ const routes: Routes = [
     children: [
       { path: '', pathMatch: 'full', redirectTo: 'home' },
       { path: 'home', loadChildren: () => import("./home/home.module").then(m => m.HomeModule) },
+      // { path: 'user', loadChildren: () => import("./user/user.module").then(m => m.UserModule) },
       { path: 'prescription', loadChildren: () => import("./prescription/prescription.module").then(m => m.PrescriptionModule) },
       //{ path: 'dashboard', loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule) },
       //{ path: 'onboarding', loadChildren: () => import("./company-onboarding/company-onboarding.module").then(m => m.CompanyOnboardingModule), data: { role: "GlobalAdmin" } },
-
       // { path: 'my-profile', loadChildren: () => import("./user-profile/user-profile.module").then(m => m.UserProfileModule) },
 
     ]

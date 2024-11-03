@@ -18,7 +18,7 @@ export class AuthenticationService {
   constructor(
     private http: HttpClient,
     private router: Router
-  ) { 
+  ) {
     this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')!));
     this.currentUser = this.currentUserSubject.asObservable();
   }
@@ -68,7 +68,7 @@ export class AuthenticationService {
           return user;
         }))
     );
-}
+  }
 
   refresh_token(): Observable<any> {
     let refreshTokenRequest: any = {
@@ -87,13 +87,26 @@ export class AuthenticationService {
   }
 
   decodeJwt(token: string) {
-    // console.log(token)
-    var base64Url = token.split('.')[1];
-    var base64 = base64Url.replace('-', '+').replace('_', '/');
-    var jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
-      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-    }).join(''));
-    return JSON.parse(jsonPayload);
+    if (!token) {
+      // console.error("Invalid token provided to decodeJwt");
+      return null;
+    }
+
+    try {
+      const tokenParts = token.split('.'); // Ensure token is in the correct format
+      const decodedPayload = atob(tokenParts[1]); // Decode the payload part
+      return JSON.parse(decodedPayload);
+    } catch (error) {
+      // console.error("Failed to decode JWT:", error);
+      return null;
+    }
+    // // console.log(token)
+    // var base64Url = token.split('.')[1];
+    // var base64 = base64Url.replace('-', '+').replace('_', '/');
+    // var jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
+    //   return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    // }).join(''));
+    // return JSON.parse(jsonPayload);
   }
 
   currentUserId() {
