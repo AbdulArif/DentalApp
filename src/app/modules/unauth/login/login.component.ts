@@ -60,7 +60,7 @@ export class LoginComponent implements OnInit {
     try {
       // Await the login service response
       const data = await this.authenticationService.login(this.loginForm.value);
-      console.log('Login successful:', data);
+      // console.log('Login successful:', data);
       this.loginForm_loading = false;
       // Navigate to /auth page after successful login
       await this.router.navigate(['auth']);
