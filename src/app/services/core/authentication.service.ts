@@ -53,6 +53,7 @@ export class AuthenticationService {
   //     }));
   // }
   login(model: LoginBindingModel): Promise<any> {
+    console.log("url:",environment.apiUrl)
     return lastValueFrom(
       this.http.post(`${environment.apiUrl}/api/Account/Login`, model)
         .pipe(map((user: any) => {
