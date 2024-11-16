@@ -1,11 +1,19 @@
 <div class="card">
-    <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
+    <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }" sortMode="multiple">>
         <ng-template pTemplate="header">
             <tr>
-                <th>Code</th>
-                <th>Name</th>
-                <th>Category</th>
-                <th>Quantity</th>
+                <th pSortableColumn="code" style="width:20%">
+                    Code <p-sortIcon field="code" ></p-sortIcon>
+                </th>
+                <th pSortableColumn="name" style="width:20%">
+                    Name <p-sortIcon field="name" ></p-sortIcon>
+                </th>
+                <th pSortableColumn="category" style="width:20%">
+                    Category <p-sortIcon field="category" ></p-sortIcon>
+                </th>
+                <th pSortableColumn="quantity" style="width:20%">
+                    Quantity <p-sortIcon field="quantity" > </p-sortIcon>
+                </th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-product>
