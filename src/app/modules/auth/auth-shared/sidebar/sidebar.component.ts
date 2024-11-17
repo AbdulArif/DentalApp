@@ -60,7 +60,7 @@ export class SidebarComponent implements OnInit {
   role!: string
   menuGroups: MenuGroup[] = []
   expand: boolean = true
-  
+
   constructor(
     public authenticationService: AuthenticationService,
     private themeService: ThemeService,
@@ -69,7 +69,7 @@ export class SidebarComponent implements OnInit {
     private deviceDetectService: DeviceDetectService,
     private sidebarService: SidebarService,
     private shareSideMenuService: ShareSideMenuService
-  ) { 
+  ) {
     this.clinicId = authenticationService.clinicId()
     this.userId = authenticationService.currentUserId()
   }
@@ -90,7 +90,7 @@ export class SidebarComponent implements OnInit {
   GetUserMenus() {
     this.menuService.GetUserMenus(this.clinicId, this.userId).subscribe({
       next: (res: MenuGroup[]) => {
-
+        console.log("Menus:", res)
         this.menuGroups = res;
         this.buildSearchableRouterLinks(res)
       },
