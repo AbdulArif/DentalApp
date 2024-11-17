@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  // apiUrl: "https://localhost:44320"
-  apiUrl: "https://dentalapi-a7c8cxepfrcea5hy.westeurope-01.azurewebsites.net"
+  apiUrl: "https://localhost:44320"
+  // apiUrl: "https://dentalapi-a7c8cxepfrcea5hy.westeurope-01.azurewebsites.net"
   // apiUrl: "http://dentalcaree.runasp.net/"
 
 };

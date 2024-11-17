@@ -20,9 +20,9 @@ export class UserService {
   }
 
   GetMyEmployees(clinicId: string, id: string, UerRole: string): Observable<any[]> {
-    console.log("clinicId",clinicId)
-    console.log("userId",id)
-    console.log("Role",UerRole)
+    console.log("clinicId:",clinicId)
+    console.log("userId:",id)
+    console.log("Role:",UerRole)
     const options = {
       headers: new HttpHeaders().append('Content-Type', 'application/json'),
       params: new HttpParams()
