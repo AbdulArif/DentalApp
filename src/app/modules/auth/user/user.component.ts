@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { ToastrService } from 'ngx-toastr';
 import { MenuItem } from 'primeng/api';
@@ -19,6 +19,7 @@ import { FieldToggleService } from 'src/app/services/shared/field-toggle.service
 })
 export class UserComponent implements OnInit {
   clinicId!: string
+  clinicName!: string
   userId!: string
   userName!: string
   items!: MenuItem[];
@@ -29,6 +30,8 @@ export class UserComponent implements OnInit {
   createUserForm_loading: boolean = false;
   todaysDate: Date = new Date();
 
+  default_select!: null;
+
   constructor(
     private title: Title,
     private formBuilder: UntypedFormBuilder,
@@ -38,12 +41,15 @@ export class UserComponent implements OnInit {
     private accountService: AccountService,
     private userService: UserService,
     private menuService: MenuService,
-  ) { }
+  ) {
+    this.buildCreateUserForm();
+  }
 
   ngOnInit(): void {
     this.title.setTitle("User")
     this.clinicId = this.authenticationService.clinicId()
     this.userId = this.authenticationService.currentUserId()
+    this.clinicName = this.authenticationService.clinicName()
     this.userName = this.authenticationService.currentUserFirstName() + ' ' + this.authenticationService.currentUserLastName();
     this.GetRoles();
     this.GetMyEmployees();
@@ -137,7 +143,62 @@ export class UserComponent implements OnInit {
   }
   display: boolean = false
   enablePass: boolean = false
-  
+  buildCreateUserForm(): void {
+    var clienturl = location.origin + "/email-confirmation"
+    this.createUserForm = this.formBuilder.group({
+      userId: null,
+      clinicId: this.clinicId,
+      parentId: this.userId,
+      clinicName: this.clinicName,
+      firstName: ['', [Validators.required, Validators.maxLength(50)]],
+      lastName: ['', [Validators.required, Validators.maxLength(50)]],
+      email: ['', [Validators.required, Validators.email]],
+      countryCode: ['', [Validators.required, Validators.maxLength(10)]],
+      phoneNumber: ['', [Validators.required, Validators.maxLength(11)]],
+      role: ['', Validators.required],
+      password: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(20)]],
+      confirmPassword: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(20)]],
+      Clienturl: clienturl,
+      addedBy: this.authenticationService.currentUserFirstName() + " " + this.authenticationService.currentUserLastName(),
+      addedDate: this.todaysDate.toISOString(),
+      updatedBy: this.authenticationService.currentUserFirstName() + " " + this.authenticationService.currentUserLastName(),
+      updatedDate: this.todaysDate.toISOString()
+    });
+  }
+  get f() { return this.createUserForm.controls; }
+  onSubmit(): void {
+    this.createUserForm_loading = true;
+    if (this.createUserForm.invalid) {
+      this.createUserForm_loading = false;
+      return;
+    }
+    // console.log(this.createUserForm)
+    this.createUserSub = this.userService.CreateUser(this.createUserForm.value, this.authenticationService.currentUserRole()).subscribe(
+      {
+        next: (response: any) => {
+          this.createUserForm_loading = false;
+          this.toastr.success(response.message, 'Success', { positionClass: 'toast-bottom-right', closeButton: true, progressBar: true, progressAnimation: 'decreasing' });
+          this.resetCreateUserForm()
+          this.display = false
+        },
+        error: (error: any) => {
+          this.createUserForm_loading = false;
+          this.toastr.error("Failed to save user!", 'Error', { positionClass: 'toast-bottom-right', closeButton: true, progressBar: true, progressAnimation: 'decreasing' });
+        },
+        complete: () => {
+          this.buildCreateUserForm();
+          this.createUserForm_loading = false;
+          this.GetMyEmployees()
+        }
+      }
+    );
+  }
+  toggleFieldTextType() {
+    this.tieldToggleService.toggleField();
+  }
+  resetCreateUserForm() {
+    this.buildCreateUserForm();
+  }
   showDialog() {
     this.display = true;
     if (this.createUserForm.get('userId')?.value) {
