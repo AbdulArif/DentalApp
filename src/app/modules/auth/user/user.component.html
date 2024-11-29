@@ -1,31 +1,257 @@
-<div class="card">
-    <p-table [value]="products"  [tableStyle]="{ 'min-width': '50rem' }" [paginator]="true"
-    [rows]="10" [rowsPerPageOptions]="[10, 20 ,50]" sortMode="multiple">
-    
-        <ng-template pTemplate="header">
-            <tr>
-                <th pSortableColumn="code" style="width:20%">
-                    Code <p-sortIcon field="code" ></p-sortIcon>
-                </th>
-                <th pSortableColumn="name" style="width:20%">
-                    Name <p-sortIcon field="name" ></p-sortIcon>
-                </th>
-                <th pSortableColumn="category" style="width:20%">
-                    Category <p-sortIcon field="category" ></p-sortIcon>
-                </th>
-                <th pSortableColumn="quantity" style="width:20%">
-                    Quantity <p-sortIcon field="quantity" > </p-sortIcon>
-                </th>
-                <th style="width:20%"></th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-product let-editing="editing" let-ri="rowIndex">
-            <tr  [pEditableRow]="product">
-                <td>{{ product.code }}</td>
-                <td>{{ product.name }}</td>
-                <td>{{ product.category }}</td>
-                <td>{{ product.quantity }}</td>
-            </tr>
-        </ng-template>
-    </p-table>
+<div class="content">
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-body p-0">
+                <p-table #dt1 [value]="myEmployees" dataKey="id" [(contextMenuSelection)]="selectedUser"
+                    [contextMenu]="cm" [rows]="10" [showCurrentPageReport]="true" sortMode="multiple"
+                    [rowsPerPageOptions]="[10,25,50]" styleClass="p-datatable-sm p-datatable-striped" [paginator]="true"
+                    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                    [globalFilterFields]="['firstName','lastName','email','phoneNumber', 'role']">
+                    <ng-template pTemplate="caption">
+                        <div class="d-flex bd-highlight">
+                            <div class="me-auto">Users<span *ngIf="myEmployees_loading"
+                                    class="spinner-border spinner-border-sm ms-4" role="status"
+                                    aria-hidden="true"></span></div>
+                            <div class="me-2">
+                                <input type="text" (input)="dt1.filterGlobal($any($event.target).value, 'contains')"
+                                    class="form-control form-control-sm shadow-none" placeholder="Search"
+                                    aria-label="search" aria-describedby="basic-search">
+                            </div>
+                            <div class="me-0">
+                                <button type="button" class="btn btn-sm btn-primary shadow-sm" (click)="showDialog()">
+                                    <i class="bi bi-plus-square-fill me-2"></i>Add User
+                                </button>
+                            </div>
+                        </div>
+                    </ng-template>
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th pSortableColumn="firstName">First name <p-sortIcon field="firstName"></p-sortIcon>
+                            </th>
+                            <th pSortableColumn="lastName">Last name <p-sortIcon field="lastName"></p-sortIcon>
+                            </th>
+                            <th pSortableColumn="email">Email <p-sortIcon field="email"></p-sortIcon>
+                            </th>
+                            <th pSortableColumn="phoneNumber">Phone number <p-sortIcon field="phoneNumber"></p-sortIcon>
+                            </th>
+                            <th pSortableColumn="role">Role <p-sortIcon field="role"></p-sortIcon>
+                            </th>
+                            <th pSortableColumn="addedDate">Added on <p-sortIcon field="addedDate"></p-sortIcon>
+                            </th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-myEmployee>
+                        <tr [pContextMenuRow]="myEmployee">
+                            <td>{{myEmployee.employee.firstName}} </td>
+                            <td>{{myEmployee.employee.lastName}} </td>
+                            <td>{{myEmployee.employee.email}}</td>
+                            <td>{{myEmployee.employee.phoneNumber}}</td>
+                            <td>{{myEmployee.roleName}}</td>
+                            <td>{{myEmployee.employee.addedDate+'Z' | date:'medium'}}</td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="emptymessage">
+                        <tr>
+                            <td colspan="7">No users found.</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </div>
+
+    </div>
 </div>
+<!-- 
+<p-dialog [(visible)]="display" [modal]="true" [draggable]="false" position="right" [resizable]="false"
+    [baseZIndex]="10000" [transitionOptions]="'125ms'" [style]="{width: '20rem'}" (onHide)="resetCreateUserForm()">
+    <ng-template pTemplate="header">
+        {{createUserForm.get('userId')?.value?"Update User":"Add User"}}
+    </ng-template>
+    <form [formGroup]="createUserForm" (ngSubmit)="onSubmit()">
+        <div class="mb-3">
+            <input class="form-control form-control-sm shadow-none" type="text" placeholder="First Name"
+                aria-label="first-name" formControlName="firstName"
+                [ngClass]="{ 'is-invalid': f['firstName'].touched && f['firstName'].errors }">
+        </div>
+        <div class="mb-3">
+            <input class="form-control form-control-sm shadow-none" type="text" placeholder="Last Name"
+                aria-label="last-name" formControlName="lastName"
+                [ngClass]="{ 'is-invalid': f['lastName'].touched && f['lastName'].errors }">
+        </div>
+        <div class="mb-3">
+            <input class="form-control form-control-sm shadow-none" type="email" placeholder="Email" aria-label="email"
+                formControlName="email" [ngClass]="{ 'is-invalid': f['email'].touched && f['email'].errors }">
+        </div>
+        <div class="mb-3">
+            <input class="form-control form-control-sm shadow-none" type="text" placeholder="Country Code"
+                aria-label="last-name" formControlName="countryCode"
+                [ngClass]="{ 'is-invalid': f['countryCode'].touched && f['countryCode'].errors }">
+        </div>
+        <div class="mb-3">
+            <input class="form-control form-control-sm shadow-none" type="text" placeholder="Phone Number"
+                aria-label="last-name" formControlName="phoneNumber"
+                [ngClass]="{ 'is-invalid': f['phoneNumber'].touched && f['phoneNumber'].errors }">
+        </div>
+        <div class="mb-3">
+            <select class="form-select form-select-sm shadow-none" aria-label="role" formControlName="role"
+                [ngClass]="{ 'is-invalid': f['role'].touched && f['role'].errors }">
+                <option value="{{default_select}}" selected>Select Role...</option>
+                <option *ngFor="let role of roles" value={{role.name}}>{{role.name}}</option>
+            </select>
+        </div>
+        <div class="input-group input-group-sm mb-3" *ngIf="enablePass">
+            <input type="text" class="form-control form-control-sm shadow-none"
+                [type]="tieldToggleService.fieldTextType ? 'text' : 'password'" placeholder="Password"
+                aria-label="password" autocomplete="new-password" formControlName="password"
+                aria-describedby="basic-addon2"
+                [ngClass]="{ 'is-invalid': f['password'].touched && f['password'].errors }"
+                *ngIf="!f['password'].disabled">
+            <span type="button" class="input-group-text" id="basic-addon2" (click)="toggleFieldTextType()">
+                <i class="bi" [ngClass]="{
+            'bi-eye-slash': !tieldToggleService.fieldTextType,
+            'bi-eye': tieldToggleService.fieldTextType
+          }"></i>
+            </span>
+        </div>
+        <div class="input-group input-group-sm mb-3" *ngIf="enablePass">
+            <input class="form-control form-control-sm shadow-none"
+                [type]="tieldToggleService.fieldTextType ? 'text' : 'password'" placeholder="Confirm Password"
+                aria-label="confirm-password" formControlName="confirmPassword"
+                [ngClass]="{ 'is-invalid': f['confirmPassword'].touched && f['confirmPassword'].errors }">
+            <span type="button" class="input-group-text" id="basic-addon2" (click)="toggleFieldTextType()">
+                <i class="bi" [ngClass]="{
+              'bi-eye-slash': !tieldToggleService.fieldTextType,
+              'bi-eye': tieldToggleService.fieldTextType
+            }"></i>
+            </span>
+        </div>
+        <div class="mb-0 d-flex">
+            <div class="me-2">
+                <button class="btn btn-primary btn-sm shadow-sm w-100" type="submit" [disabled]="!createUserForm.valid">
+                    <div *ngIf="!createUserForm_loading"><i class="bi bi-save-fill me-2"></i>Save</div>
+                    <div *ngIf="createUserForm_loading" class="spinner-border spinner-border-sm text-warning"
+                        role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </button>
+            </div>
+            <div class="me-auto">
+                <button class="btn btn-sm btn-info shadow-sm" *ngIf="enablePass" tooltipPosition="top" [escape]="false"
+                    tooltipEvent="hover"
+                    pTooltip="<ul><li>Email has to be unique</li><li>Password<ul><li>has to be between 8 to 15 character long</li><li>at least one uppercase letter</li><li>at least one number</li><li>at least one special character (@$!%*?&)</li></ul></li></ul>">
+                    <i class="bi bi-info-circle"></i>
+                </button>
+            </div>
+            <div class="me-0">
+                <button [disabled]="createUserForm_loading" class="btn btn-warning btn-sm shadow-sm w-100" type="button"
+                    (click)="resetCreateUserForm()">
+                    <div><i class="bi bi-exclamation-triangle me-2"></i>Reset</div>
+                </button>
+            </div>
+
+        </div>
+    </form>
+</p-dialog> -->
+
+<ng-template #popTemplate>
+    <ul>
+        <li>Email has to be unique </li>
+        <li>Password
+            <ul>
+                <li>has to be between 8 to 15 character long</li>
+                <li>at least one uppercase letter</li>
+                <li>at least one number</li>
+                <li>at least one special character</li>
+            </ul>
+        </li>
+    </ul>
+</ng-template>
+<p-contextMenu #cm [model]="items"></p-contextMenu>
+
+<!-- User Authorization -->
+<!-- <p-dialog [(visible)]="userAuthorizationDisplay" [modal]="true" [draggable]="false" [resizable]="false"
+    [baseZIndex]="10000" [transitionOptions]="'125ms'" [style]="{width: '80vw'}" (onHide)="resetUserAuthorization()">
+    <ng-template pTemplate="header">
+        User Authorization : {{selectedUserName}}
+    </ng-template>
+    <div class="row g-2">
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-header p-2"> Menu Groups</div>
+                <div class="card-body p-2">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex justify-content-between align-items-start"
+                            *ngFor="let menuGroup of menuGroups; let i = index">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" [(ngModel)]="menuGroup.checked"
+                                    (click)="onClickMenuGroup($event, menuGroup, i)">
+                                <label class="form-check-label">
+                                    {{menuGroup.menuGroupName}}
+                                </label>
+                            </div>
+                            <i *ngIf="!hideMainMenu && menuGroup.haveSubMenuIcon" class="bi bi-chevron-right"
+                                (click)="showMainMenus($event, menuGroup)"></i>
+                            <i *ngIf="hideMainMenu && menuGroupName == menuGroup.menuGroupName"
+                                class="bi bi-chevron-down" (click)="hideMainMenus()"></i>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-header p-2">Main Menus : {{menuGroupName}}</div>
+                <div class="card-body p-2">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex justify-content-between align-items-start"
+                            *ngFor="let mainMenu of mainMenus; let j = index">
+                            <div class="form-check">
+                                <input disabled={{disableMainMenuCheckBox}} class="form-check-input" type="checkbox"
+                                    value="" id="mainMenu" [(ngModel)]="mainMenu.checked"
+                                    (click)="onClickMainMenu($event, mainMenu, j)">
+                                <label class="form-check-label" for="mainMenu">
+                                    {{mainMenu.mainMenuName}}
+                                </label>
+                            </div>
+                            <i *ngIf="!hideSubMenu && mainMenu.haveSubMenuIcon" class="bi bi-chevron-right"
+                                (click)="showSubMenus($event, mainMenu)"></i>
+                            <i *ngIf="hideSubMenu && mainMenuName == mainMenu.mainMenuName" class="bi bi-chevron-down"
+                                (click)="hideSubMenus()"></i>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-header p-2">SubMenus : {{mainMenuName}} </div>
+                <div class="card-body p-2">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item" *ngFor="let subMenu of subMenus">
+                            <div class="form-check">
+                                <input disabled={{disableSubMenuCheckBox}} class="form-check-input" type="checkbox"
+                                    value="" id="subMenu" [(ngModel)]="subMenu.checked">
+                                <label class="form-check-label" for="subMenu">
+                                    {{subMenu.subMenuName}}
+                                </label>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-end mt-3">
+            <button class="btn btn-primary btn-sm shadow-sm me-2" type="button" (click)="GiveUserAuthorization()">
+                <div *ngIf="!userAuthorization_loading"><i class="bi bi-save-fill me-2"></i>Save</div>
+                <div *ngIf="userAuthorization_loading" class="spinner-border spinner-border-sm text-warning"
+                    role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </button>
+
+
+            <button type="button" class="btn btn-warning" (click)="resetUserAuthorization()">Cancel</button>
+        </div>
+    </div>
+</p-dialog> -->
