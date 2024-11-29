@@ -20,14 +20,14 @@ export class UserService {
   }
 
   GetMyEmployees(clinicId: string, id: string, UerRole: string): Observable<any[]> {
-    console.log("clinicId:",clinicId)
-    console.log("userId:",id)
-    console.log("Role:",UerRole)
+    // console.log("clinicId:",clinicId)
+    // console.log("userId:",id)
+    // console.log("Role:",UerRole)
     const options = {
       headers: new HttpHeaders().append('Content-Type', 'application/json'),
       params: new HttpParams()
-        .append('clinicId', clinicId)
-        .append('id', id)
+        .append('ClinicId', clinicId)
+        .append('Id', id)
         .append('UerRole', UerRole)
     }
     return this.http.get<any[]>(`${environment.apiUrl}/api/Users/GetMyEmployees`, options);
