@@ -282,7 +282,7 @@ export class UserComponent implements OnInit {
     this.getEmployeeSub = this.userService.GetMyEmployees(this.clinicId, this.userId, this.authenticationService.currentUserRole()).subscribe(
       {
         next: (response: any) => {
-          console.log(response)
+          console.log("GetMyEmployees result :",response)
           this.myEmployees = response;
           this.myEmployees_loading = false
         },
