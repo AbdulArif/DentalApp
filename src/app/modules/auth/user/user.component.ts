@@ -172,7 +172,7 @@ export class UserComponent implements OnInit {
       this.createUserForm_loading = false;
       return;
     }
-    // console.log(this.createUserForm)
+    console.log(this.createUserForm.value)
     this.createUserSub = this.userService.CreateUser(this.createUserForm.value, this.authenticationService.currentUserRole()).subscribe(
       {
         next: (response: any) => {
