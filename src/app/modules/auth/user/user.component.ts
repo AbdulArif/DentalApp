@@ -233,7 +233,7 @@ export class UserComponent implements OnInit {
     this.clinicId = this.authenticationService.clinicId()
     this.userId = this.authenticationService.currentUserId()
     this.userName = this.authenticationService.currentUserFirstName() + ' ' + this.authenticationService.currentUserLastName();
-    this.GetRoles();
+    // this.GetRoles();
     this.GetMyEmployees();
     this.GetAvailableMenus()
     this.items = [
@@ -257,23 +257,23 @@ export class UserComponent implements OnInit {
     }
   }
 
-  roles: Role[] = [];
-  GetRoles(): void {
-    this.getRolesSub = this.accountService.GetRoles().subscribe(
-      {
-        next: (response: any) => {
-          console.log("Roles : ",response)
+  // roles: Role[] = [];
+  // GetRoles(): void {
+  //   this.getRolesSub = this.accountService.GetRoles().subscribe(
+  //     {
+  //       next: (response: any) => {
+  //         console.log("Roles : ",response)
 
-          this.roles = response;
-        },
-        error: (error: any) => {
-          this.toastr.error('Failed to get roles.', 'Error', { positionClass: 'toast-bottom-right', closeButton: true, progressBar: true, progressAnimation: 'decreasing' });
-        },
-        complete: () => {
-        }
-      }
-    );
-  }
+  //         this.roles = response;
+  //       },
+  //       error: (error: any) => {
+  //         this.toastr.error('Failed to get roles.', 'Error', { positionClass: 'toast-bottom-right', closeButton: true, progressBar: true, progressAnimation: 'decreasing' });
+  //       },
+  //       complete: () => {
+  //       }
+  //     }
+  //   );
+  // }
   myEmployees_loading: boolean = false
   myEmployees: any[] = [];
 
