@@ -262,7 +262,7 @@ export class UserComponent implements OnInit {
     this.getRolesSub = this.accountService.GetRoles().subscribe(
       {
         next: (response: any) => {
-          console.log(response)
+          console.log("Roles : ",response)
 
           this.roles = response;
         },

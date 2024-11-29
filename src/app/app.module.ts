@@ -11,13 +11,15 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { SystemThemeService } from './theme/system-theme.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AuthGuard } from './guards/auth.guard';
+import { JwtInterceptor } from './interceptors/jwt.interceptor';
 
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent    
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -30,7 +32,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   providers: [
     ThemeService,
     AuthenticationService,
-    SystemThemeService
+    SystemThemeService,
+    AuthGuard,
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })

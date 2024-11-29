@@ -109,7 +109,10 @@ export class AuthenticationService {
     // }).join(''));
     // return JSON.parse(jsonPayload);
   }
-
+  isLoggedIn(): boolean {
+    var currentUser = localStorage.getItem('currentUser');
+    return currentUser ? true : false
+  }
   currentUserId() {
     return this.decodeJwt(JSON.parse(localStorage.getItem('currentUser')!).token).id;
   }
