@@ -144,7 +144,7 @@ export class UserComponent implements OnInit {
   display: boolean = false
   enablePass: boolean = false
   buildCreateUserForm(): void {
-    var clienturl = location.origin + "/email-confirmation"
+    const clienturl = location.origin + "/email-confirmation"
     this.createUserForm = this.formBuilder.group({
       userId: null,
       clinicId: this.clinicId,
