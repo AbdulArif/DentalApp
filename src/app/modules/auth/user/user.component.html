@@ -11,7 +11,8 @@
                         <div class="d-flex bd-highlight">
                             <div class="me-auto">Users<span *ngIf="myEmployees_loading"
                                     class="spinner-border spinner-border-sm ms-4" role="status"
-                                    aria-hidden="true"></span></div>
+                                    aria-hidden="true"></span>
+                            </div>
                             <div class="me-2">
                                 <input type="text" (input)="dt1.filterGlobal($any($event.target).value, 'contains')"
                                     class="form-control form-control-sm shadow-none" placeholder="Search"
