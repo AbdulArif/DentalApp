@@ -55,7 +55,7 @@ export class UserComponent implements OnInit {
     this.GetMyEmployees();
     this.GetAvailableMenus()
     this.items = [
-      // { label: 'View/Edit', icon: 'pi pi-fw pi-eye', command: () => this.viewUser(this.selectedUser) },
+      { label: 'View/Edit', icon: 'pi pi-fw pi-eye', command: () => this.viewUser(this.selectedUser) },
       // { label: 'User Authorization', icon: 'pi pi-users', command: () => this.userAuthorization(this.selectedUser) },
       // { label: 'Impersonate', icon: 'bi bi-person-bounding-box', command: () => this.impersonateUser(this.selectedUser) }
     ]
@@ -207,5 +207,27 @@ export class UserComponent implements OnInit {
     else {
       this.enablePass = true
     }
+  }
+  // View selected User
+  viewUser(user: any) {
+    this.createUserForm.patchValue({
+      userId: user.employee.id,
+      companyId: user.employee.companyId,
+      parentId: user.employee.parentId,
+      companyName: user.employee.companyName,
+      firstName: user.employee.firstName,
+      lastName: user.employee.lastName,
+      email: user.employee.email,
+      countryCode: user.employee.countryCode,
+      phoneNumber: user.employee.phoneNumber,
+      password: "Password@1",
+      confirmPassword: "Password@1",
+      role: user.roleName,
+      addedBy: user.employee.addedBy,
+      addedDate: user.employee.addedDate,
+      updatedBy: this.authenticationService.currentUserFirstName() + " " + this.authenticationService.currentUserLastName(),
+      updatedDate: this.todaysDate.toISOString()
+    })
+    this.showDialog()
   }
 }
