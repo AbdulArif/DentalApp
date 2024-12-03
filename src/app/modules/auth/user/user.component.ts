@@ -242,7 +242,7 @@ export class UserComponent implements OnInit {
   GetUserMenus() {
     this.menuService.GetUserMenus(this.clinicId, this.userId).subscribe({
       next: (res: any[]) => {
-        // console.log(res)
+        console.log("GetUserMenus :",res)
         this.userMenuGroups = res;
         if (this.userMenuGroups) {
           this.userMenuGroups.forEach(mg => {
