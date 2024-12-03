@@ -70,6 +70,7 @@ export class UserComponent implements OnInit {
   getEmployeeSub!: Subscription;
   getRolesSub!: Subscription;
   createUserSub!: Subscription;
+  userMenuGroupsSub!: Subscription;
   ngOnDestroy(): void {
     if (this.getEmployeeSub) {
       this.getEmployeeSub.unsubscribe();
@@ -79,6 +80,9 @@ export class UserComponent implements OnInit {
     }
     if (this.createUserSub) {
       this.createUserSub.unsubscribe();
+    }
+    if (this.userMenuGroupsSub) {
+      this.userMenuGroupsSub.unsubscribe();
     }
   }
 
@@ -240,9 +244,9 @@ export class UserComponent implements OnInit {
 
 
   GetUserMenus() {
-    this.menuService.GetUserMenus(this.clinicId, this.userId).subscribe({
+    this.userMenuGroupsSub = this.menuService.GetUserMenus(this.clinicId, this.userId).subscribe({
       next: (res: any[]) => {
-        console.log("GetUserMenus :",res)
+        console.log("GetUserMenus :", res)
         this.userMenuGroups = res;
         if (this.userMenuGroups) {
           this.userMenuGroups.forEach(mg => {
