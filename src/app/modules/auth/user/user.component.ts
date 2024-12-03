@@ -31,6 +31,14 @@ export class UserComponent implements OnInit {
   todaysDate: Date = new Date();
 
   default_select!: null;
+  menuGroups: any[] = []
+
+  userMenuGroups: any[] = []
+  mainMenus: any[] = []
+  subMenus: any[] = []
+
+  selectedUserName!: string
+
 
   constructor(
     private title: Title,
@@ -57,7 +65,6 @@ export class UserComponent implements OnInit {
     this.items = [
       { label: 'View/Edit', icon: 'pi pi-fw pi-eye', command: () => this.viewUser(this.selectedUser) },
       // { label: 'User Authorization', icon: 'pi pi-users', command: () => this.userAuthorization(this.selectedUser) },
-      // { label: 'Impersonate', icon: 'bi bi-person-bounding-box', command: () => this.impersonateUser(this.selectedUser) }
     ]
   }
   getEmployeeSub!: Subscription;
@@ -230,4 +237,78 @@ export class UserComponent implements OnInit {
     })
     this.showDialog()
   }
+
+
+  GetUserMenus() {
+    this.menuService.GetUserMenus(this.clinicId, this.userId).subscribe({
+      next: (res: any[]) => {
+        // console.log(res)
+        this.userMenuGroups = res;
+        if (this.userMenuGroups) {
+          this.userMenuGroups.forEach(mg => {
+            var _menuGroupName = mg.menuGroupName
+            var omg_index = this.menuGroups.findIndex(c => c.menuGroupName == _menuGroupName)
+            // omg_index >= 0 ? this.menuGroups[omg_index].checked = true : this.menuGroups[omg_index].checked = false
+            if (omg_index >= 0) {
+              this.menuGroups[omg_index].checked = true
+              this.menuGroups[omg_index].userId = this.userId
+            }
+            else {
+              this.menuGroups[omg_index].checked = false
+            }
+            var _mainMenus: any[] = mg.mainMenus
+            // // console.log(omg_index)
+            // // console.log(_menuGroupName)
+            _mainMenus.forEach(mainMenu => {
+              var _mainMenuName = mainMenu.mainMenuName
+              // const mm_index = _mainMenus.findIndex(c => c.mainMenuName == _mainMenuName);/// working but have bug
+              const mm_index = this.menuGroups[omg_index].mainMenus.findIndex((c: any) => c.mainMenuName == _mainMenuName);
+              if (mm_index >= 0) {
+                this.menuGroups[omg_index].mainMenus[mm_index].checked = true
+              }
+              else {
+                this.menuGroups[omg_index].mainMenus[mm_index].checked = false
+              }
+              var _subMenus: any[] = mainMenu.subMenus
+              _subMenus.forEach(subMenu => {
+                var _subMenuName = subMenu.subMenuName
+                const sm_index = this.menuGroups[omg_index].mainMenus[mm_index].subMenus.findIndex((c: any) => c.subMenuName == _subMenuName);
+                if (sm_index >= 0) {
+                  this.menuGroups[omg_index].mainMenus[mm_index].subMenus[sm_index].checked = true
+                }
+                else {
+                  this.menuGroups[omg_index].mainMenus[mm_index].subMenus[sm_index].checked = false
+                }
+
+              });
+            });
+          });
+
+        }
+        else {
+          console.log("else")
+        }
+      },
+      error: (err) => { console.log(err) }
+    })
+  }
+
+  userAuthorization(user: any) {
+    // console.log(user)
+    this.mainMenus = []
+    this.subMenus = []
+    this.selectedUserName = user.employee.firstName + " " + user.employee.lastName
+    this.userId = user.employee.id
+    // console.log(this.userId)
+    this.GetUserMenus()
+    this.showUserAuthorizationDialog()
+  }
+  userAuthorizationDisplay: boolean = false;
+  showUserAuthorizationDialog() {
+    this.userAuthorizationDisplay = true;
+  }
+  resetUserAuthorization() {
+    this.userAuthorizationDisplay = false;
+  }
+
 }
