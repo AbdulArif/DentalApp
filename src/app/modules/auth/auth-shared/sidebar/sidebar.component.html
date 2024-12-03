@@ -47,7 +47,7 @@
                 </li>
             </ul>
         </div>
-        <div class="px-2" id="installed" *ngIf="role!=='USER'">
+        <!-- <div class="px-2" id="installed" *ngIf="role!=='USER'">
             <div class="nav-lnk text-decoration-none d-flex py-2" data-bs-toggle="collapse" data-bs-target="#admin"
                 role="button" [attr.aria-expanded]="expand" aria-controls="admin">
                 <i class="bi bi-person-fill-gear fw-semibold me-2"></i>
@@ -101,7 +101,7 @@
                     </a>
                 </li>
             </ul>
-        </div>
+        </div> -->
         <div class="px-2" id="globaladmin">
             <ul class="list-unstyled">
                 <li *ngIf="role=='GlobalAdmin'">
@@ -113,7 +113,7 @@
         </div>
     </div>
 </nav>
-<!-- 
+
 <p-overlayPanel #op [style]="{overflow:'auto', 'max-height':'60vh'}">
     <ng-template pTemplate>
         <div class="list-group list-group-flush p-0" *ngIf="routerLinkFiltered.length>=1">
@@ -124,4 +124,4 @@
         </div>
         <div *ngIf="routerLinkFiltered.length<1">No Results Found!</div>
     </ng-template>
-</p-overlayPanel> -->
+</p-overlayPanel>
