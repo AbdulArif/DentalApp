@@ -184,6 +184,7 @@ export class UserComponent implements OnInit {
       return;
     }
     console.log(this.createUserForm.value)
+    console.log(this.authenticationService.currentUserRole())
     this.createUserSub = this.userService.CreateUser(this.createUserForm.value, this.authenticationService.currentUserRole()).subscribe(
       {
         next: (response: any) => {
@@ -224,9 +225,9 @@ export class UserComponent implements OnInit {
     console.log("Selected user :", user)
     this.createUserForm.patchValue({
       userId: user.employee.id,
-      companyId: user.employee.companyId,
+      clinicId: user.employee.clinicId,
       parentId: user.employee.parentId,
-      companyName: user.employee.companyName,
+      clinicName: user.employee.clinicName,
       firstName: user.employee.firstName,
       lastName: user.employee.lastName,
       email: user.employee.email,
