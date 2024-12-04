@@ -221,6 +221,7 @@ export class UserComponent implements OnInit {
   }
   // View selected User
   viewUser(user: any) {
+    console.log("Selected user :", user)
     this.createUserForm.patchValue({
       userId: user.employee.id,
       companyId: user.employee.companyId,
