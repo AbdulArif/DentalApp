@@ -63,7 +63,7 @@ export class UserComponent implements OnInit {
     this.GetMyEmployees();
     this.GetAvailableMenus()
     this.items = [
-      { label: 'View/Edit', icon: 'pi pi-fw pi-eye', command: () => this.viewUser(this.selectedUser) },
+      { label: 'View/Edit', icon: 'bi bi-pencil-square', command: () => this.viewUser(this.selectedUser) },
       // { label: 'User Authorization', icon: 'pi pi-users', command: () => this.userAuthorization(this.selectedUser) },
     ]
   }
