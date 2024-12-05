@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { MenuItem } from 'primeng/api';
 import { Subscription } from 'rxjs';
 import { Role } from 'src/app/models/account/account.model';
+import { MenuGroup } from 'src/app/models/menu/menu.model';
 import { AccountService } from 'src/app/services/account/account.service';
 import { UserService } from 'src/app/services/account/user.service';
 import { AuthenticationService } from 'src/app/services/core/authentication.service';
@@ -64,7 +65,7 @@ export class UserComponent implements OnInit {
     this.GetAvailableMenus()
     this.items = [
       { label: 'View/Edit', icon: 'bi bi-pencil-square', command: () => this.viewUser(this.selectedUser) },
-      // { label: 'User Authorization', icon: 'pi pi-users', command: () => this.userAuthorization(this.selectedUser) },
+      { label: 'User Authorization', icon: 'pi pi-users', command: () => this.userAuthorization(this.selectedUser) },
     ]
   }
   getEmployeeSub!: Subscription;
@@ -298,6 +299,16 @@ export class UserComponent implements OnInit {
       error: (err) => { console.log(err) }
     })
   }
+  //#region  User Authorization
+  hideMainMenu: boolean = false;
+  hideSubMenu: boolean = false;
+  userAuthorizationDisplay: boolean = false;
+  userAuthorization_loading: boolean = false;
+  disableMainMenuCheckBox: boolean = false;
+  menuGroupName: string = ""
+  mainMenuName: string = ""
+  disableSubMenuCheckBox: boolean = false
+
 
   userAuthorization(user: any) {
     // console.log(user)
@@ -309,12 +320,155 @@ export class UserComponent implements OnInit {
     this.GetUserMenus()
     this.showUserAuthorizationDialog()
   }
-  userAuthorizationDisplay: boolean = false;
+
   showUserAuthorizationDialog() {
     this.userAuthorizationDisplay = true;
   }
   resetUserAuthorization() {
     this.userAuthorizationDisplay = false;
   }
+  showMainMenus(event: any, value: any) {
+    if (!value.checked) {
+      this.disableMainMenuCheckBox = true
+    }
+    if (value.mainMenus.length == 0) {
+      // console.log("No mainMenus")
+    }
+    else {
+      // // console.log(this.mainMenuName)
+      this.hideMainMenu = true
+      this.menuGroupName = value.menuGroupName
+      this.mainMenus = value.mainMenus;
+    }
+    // console.log(this.menuGroups)
+    // console.log(this.mainMenus)
+    // console.log(this.subMenus)
+  }
+  showSubMenus(event: any, value: any) {
+    // // console.log(value)
+    if (!value.checked) {
+      this.disableSubMenuCheckBox = true
+    }
+    if (value.subMenus.length == 0) {
+      this.hideSubMenu = false
+    }
+    else {
+      this.hideSubMenu = true
+      this.subMenus = []
+      this.mainMenuName = value.mainMenuName
+      this.subMenus = value.subMenus;
+    }
+
+    // // console.log(value)
+  }
+  hideSubMenus() {
+    this.hideSubMenu = false
+    this.mainMenuName = ""
+    this.subMenus = []
+  }
+  findMainMenu(menuGroups: MenuGroup[], targetMainMenuId: string): any {
+    for (const menuGroup of menuGroups) {
+      const mainMenus = menuGroup.mainMenus;
+      for (const mainMenu of mainMenus) {
+        if (mainMenu.mainMenuId === targetMainMenuId) {
+          return mainMenu;
+        }
+      }
+    }
+    return null; // Return null if mainMenuId is not found
+  }
+  onClickMenuGroup(event: any, value: any, index: any) {
+    // console.log(event.target.checked)
+    // console.log(value.menuGroupName)
+    // console.log(value.menuGroupName)
+
+    if (event.target.checked) { /// checked
+      this.disableMainMenuCheckBox = false
+      // console.log(value)
+      // console.log(index)
+      this.menuGroups[index].userId = this.userId
+      this.menuGroups[index].addedBy = this.userName
+      this.menuGroups[index].addedDate = new Date().toISOString();
+    }
+    else {  // unchecked
+      this.menuGroups[index].userId = this.userId
+      this.menuGroups[index].addedBy = this.userName
+      this.menuGroups[index].addedDate = new Date().toISOString();
+      const manageMenuGroup = this.menuGroups.find(group => group.menuGroupName === value.menuGroupName);
+      if (manageMenuGroup) {
+        console.log(manageMenuGroup)
+        // Iterate over the mainMenus array and set the "checked" property to false
+        manageMenuGroup.mainMenus.forEach((_mainMenus: any) => {
+          _mainMenus.checked = false;
+          // console.log(_mainMenus)
+          _mainMenus.subMenus.forEach((subMenu: any) => {
+            // console.log(subMenu)
+            subMenu.checked = false;
+          });
+        });
+      }
+      this.mainMenus = [];
+      this.subMenus = []
+      this.disableMainMenuCheckBox = false
+    }
+    // console.log(this.menuGroups)
+    // console.log(this.mainMenus)
+    // console.log(this.subMenus)
+  }
+  hideMainMenus() {
+    /// clear Main Menus & SubMenus header and also mainMenus,subMenus list not claer main menuGroups json
+    this.hideMainMenu = false
+    this.hideSubMenu = false
+    this.menuGroupName = ""
+    this.mainMenuName = ""
+    this.mainMenus = []
+    this.subMenus = []
+  }
+  onClickMainMenu(event: any, value: any, index: any) {
+    console.log(value)
+    console.log(index)
+    console.log(this.menuGroups)
+    if (event.target.checked) {
+      this.disableSubMenuCheckBox = false
+    }
+    else {
+      this.disableSubMenuCheckBox = true
+      // console.log(value)
+      const _mainMenu = this.findMainMenu(this.menuGroups, value.mainMenuId);
+      console.log(_mainMenu);
+      _mainMenu.subMenus.forEach((subMenu: any) => {
+        subMenu.checked = false
+      });
+      this.subMenus = []
+    }
+    // console.log(this.menuGroups)
+    // console.log(this.mainMenus)
+    // console.log(this.subMenus)
+  }
+  onClickSubMenu(event: any, value: any) {
+    // // console.log(event.target.checked)
+    // // console.log(value)
+  }
+
+  GiveUserAuthorization() {
+    // console.log(this.menuGroups)
+    this.userAuthorization_loading = true
+    this.menuService.UserAuthorization(this.menuGroups).subscribe(
+      {
+        next: (res: any) => {
+          // // console.log(res)
+          this.userAuthorization_loading = false
+          this.toastr.success('User authorization saved.', 'Success', { positionClass: 'toast-bottom-right', closeButton: true, progressBar: true, progressAnimation: 'decreasing' });
+          this.userAuthorizationDisplay = false;
+        },
+        error: (error: any) => {
+          this.toastr.error('Failed to save.', 'Error', { positionClass: 'toast-bottom-right', closeButton: true, progressBar: true, progressAnimation: 'decreasing' });
+        },
+        complete: () => { }
+      }
+    )
+  }
+
+  //#endregion
 
 }
