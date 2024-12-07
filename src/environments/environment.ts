@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  // apiUrl: "https://localhost:44320"
-  apiUrl: "http://192.168.0.106"
+  apiUrl: "https://localhost:44320"
+  // apiUrl: "http://192.168.0.106"
   // apiUrl: "http://dentalcaree.runasp.net/"
 
 };
