@@ -63,7 +63,7 @@
     </div>
 </div>
 <!--  User Add and update user -->
-<p-dialog [(visible)]="display" [modal]="true" [draggable]="false" position="right" [resizable]="false"
+<p-dialog [(visible)]="display" [modal]="true" [draggable]="true" position="right" [resizable]="false"
     [baseZIndex]="10000" [transitionOptions]="'125ms'" [style]="{width: '20rem'}" (onHide)="resetCreateUserForm()">
     <ng-template pTemplate="header">
         {{createUserForm.get('userId')?.value?"Update User":"Add User"}}
@@ -154,23 +154,10 @@
     </form>
 </p-dialog>
 
-<ng-template #popTemplate>
-    <ul>
-        <li>Email has to be unique </li>
-        <li>Password
-            <ul>
-                <li>has to be between 8 to 15 character long</li>
-                <li>at least one uppercase letter</li>
-                <li>at least one number</li>
-                <li>at least one special character</li>
-            </ul>
-        </li>
-    </ul>
-</ng-template>
 <p-contextMenu #cm [model]="items"></p-contextMenu>
 
 <!-- User Authorization -->
-<!-- <p-dialog [(visible)]="userAuthorizationDisplay" [modal]="true" [draggable]="false" [resizable]="false"
+<p-dialog [(visible)]="userAuthorizationDisplay" [modal]="true" [draggable]="false" [resizable]="false"
     [baseZIndex]="10000" [transitionOptions]="'125ms'" [style]="{width: '80vw'}" (onHide)="resetUserAuthorization()">
     <ng-template pTemplate="header">
         User Authorization : {{selectedUserName}}
@@ -255,4 +242,4 @@
             <button type="button" class="btn btn-warning" (click)="resetUserAuthorization()">Cancel</button>
         </div>
     </div>
-</p-dialog> -->
+</p-dialog>
