@@ -34,22 +34,22 @@ export class PatientComponent implements OnInit {
     this.GetMyPatient();
   }
 
-  myEmployees_loading: boolean = false
-  myEmployees: any[] = [];
+  Patient_loading: boolean = false
+  Patient: any[] = [];
   getPatientSub !: Subscription
 
   GetMyPatient() {
-    this.myEmployees_loading = true
+    this.Patient_loading = true
     this.getPatientSub = this.patientService.GetPatients(this.clinicId, this.userId).subscribe(
       {
         next: (response: any) => {
           console.log("Patient Details :", response)
-          this.myEmployees = response;
-          this.myEmployees_loading = false
+          this.Patient = response;
+          this.Patient_loading = false
         },
         error: (error: any) => {
           this.toastr.error('Patient Not Found.', 'Error', { positionClass: 'toast-bottom-right', closeButton: true, progressBar: true, progressAnimation: 'decreasing' });
-          this.myEmployees_loading = false
+          this.Patient_loading = false
         },
         complete: () => {
         }
