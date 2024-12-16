@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { PatientRoutingModule } from './patient-routing.module';
 import { PatientComponent } from './patient.component';
+import { TableModule } from 'primeng/table';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { PatientComponent } from './patient.component';
   ],
   imports: [
     CommonModule,
-    PatientRoutingModule
+    PatientRoutingModule,
+    TableModule,
   ]
 })
 export class PatientModule { }

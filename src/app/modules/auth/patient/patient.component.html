@@ -1,1 +1,67 @@
-<p>patient works!</p>
+<div class="content">
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-body p-0">
+                <p-table #dt1 [value]="Patients" dataKey="id" [rows]="10" [showCurrentPageReport]="true"
+                    sortMode="multiple" [rowsPerPageOptions]="[10,25,50]"
+                    styleClass="p-datatable-sm p-datatable-striped" [paginator]="true"
+                    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                    [globalFilterFields]="['fullName','phoneNumber','address','reasonForVisit', 'patientReports']">
+                    <ng-template pTemplate="caption">
+                        <div class="d-flex bd-highlight">
+                            <div class="me-auto">Users<span *ngIf="Patient_loading"
+                                    class="spinner-border spinner-border-sm ms-4" role="status"
+                                    aria-hidden="true"></span>
+                            </div>
+                            <div class="me-2">
+                                <input type="text" (input)="dt1.filterGlobal($any($event.target).value, 'contains')"
+                                    class="form-control form-control-sm shadow-none" placeholder="Search"
+                                    aria-label="search" aria-describedby="basic-search">
+                            </div>
+                            <div class="me-0">
+                                <!-- <button type="button" class="btn btn-sm btn-primary shadow-sm" (click)="showDialog()">
+                                    <i class="bi bi-plus-square-fill me-2"></i>Add User
+                                </button> -->
+                            </div>
+                        </div>
+                    </ng-template>
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th pSortableColumn="fullName">fullName <p-sortIcon field="fullName"></p-sortIcon>
+                            </th>
+                            <th pSortableColumn="phoneNumber">phoneNumber <p-sortIcon field="phoneNumber"></p-sortIcon>
+                            </th>
+                            <th pSortableColumn="address">address <p-sortIcon field="address"></p-sortIcon>
+                            </th>
+                            <th pSortableColumn="reasonForVisit">reasonForVisit <p-sortIcon
+                                    field="reasonForVisit"></p-sortIcon>
+                            </th>
+                            <th pSortableColumn="patientReports">patientReports <p-sortIcon
+                                    field="patientReports"></p-sortIcon>
+                            </th>
+                            <th pSortableColumn="preferredDateAndTime">preferredDateAndTime <p-sortIcon
+                                    field="preferredDateAndTime"></p-sortIcon>
+                            </th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-Patient>
+                        <tr [pContextMenuRow]="Patient">
+                            <td>{{Patient.fullName}} </td>
+                            <td>{{Patient.phoneNumber}}</td>
+                            <td>{{Patient.address}} </td>
+                            <td>{{Patient.reasonForVisit}}</td>
+                            <td>{{Patient.patientReports}}</td>
+                            <td>{{Patient.preferredDateAndTime+'Z' | date:'medium'}}</td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="emptymessage">
+                        <tr>
+                            <td colspan="7">No users found.</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </div>
+
+    </div>
+</div>

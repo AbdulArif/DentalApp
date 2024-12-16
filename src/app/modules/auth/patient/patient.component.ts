@@ -35,7 +35,7 @@ export class PatientComponent implements OnInit {
   }
 
   Patient_loading: boolean = false
-  Patient: any[] = [];
+  Patients: any[] = [];
   getPatientSub !: Subscription
 
   GetMyPatient() {
@@ -44,7 +44,7 @@ export class PatientComponent implements OnInit {
       {
         next: (response: any) => {
           console.log("Patient Details :", response)
-          this.Patient = response;
+          this.Patients = response;
           this.Patient_loading = false
         },
         error: (error: any) => {
