@@ -9,7 +9,7 @@
                     [globalFilterFields]="['fullName','phoneNumber','address','reasonForVisit', 'patientReports']">
                     <ng-template pTemplate="caption">
                         <div class="d-flex bd-highlight">
-                            <div class="me-auto">Users<span *ngIf="Patient_loading"
+                            <div class="me-auto">Patients<span *ngIf="Patient_loading"
                                     class="spinner-border spinner-border-sm ms-4" role="status"
                                     aria-hidden="true"></span>
                             </div>
@@ -27,21 +27,42 @@
                     </ng-template>
                     <ng-template pTemplate="header">
                         <tr>
-                            <th pSortableColumn="fullName">fullName <p-sortIcon field="fullName"></p-sortIcon>
+                            <th pSortableColumn="fullName">Name <p-sortIcon field="fullName"></p-sortIcon>
                             </th>
-                            <th pSortableColumn="phoneNumber">phoneNumber <p-sortIcon field="phoneNumber"></p-sortIcon>
+                            <th pSortableColumn="phoneNumber">PhoneNo. <p-sortIcon field="phoneNumber"></p-sortIcon>
                             </th>
-                            <th pSortableColumn="address">address <p-sortIcon field="address"></p-sortIcon>
+                            <th pSortableColumn="address">Address <p-sortIcon field="address"></p-sortIcon>
                             </th>
-                            <th pSortableColumn="reasonForVisit">reasonForVisit <p-sortIcon
+                            <th pSortableColumn="reasonForVisit">Reason <p-sortIcon
                                     field="reasonForVisit"></p-sortIcon>
                             </th>
-                            <th pSortableColumn="patientReports">patientReports <p-sortIcon
+                            <th pSortableColumn="patientReports">Reports <p-sortIcon
                                     field="patientReports"></p-sortIcon>
                             </th>
-                            <th pSortableColumn="preferredDateAndTime">preferredDateAndTime <p-sortIcon
+                            <th pSortableColumn="insuranceDetails">insuranceDetails <p-sortIcon field="insuranceDetails"></p-sortIcon>
+                            </th>
+                            <th pSortableColumn="medicalHistory">medicalHistory <p-sortIcon field="medicalHistory"></p-sortIcon>
+                            </th>
+                            <th pSortableColumn="dentalHistory">dentalHistory <p-sortIcon field="dentalHistory"></p-sortIcon>
+                            </th>
+                            <th pSortableColumn="dateOfBirth">dateOfBirth <p-sortIcon
+                                    field="dateOfBirth"></p-sortIcon>
+                            </th>
+                            <th pSortableColumn="preferredDateAndTime">Visit Date <p-sortIcon
                                     field="preferredDateAndTime"></p-sortIcon>
                             </th>
+                            <th pSortableColumn="addedBy">addedBy <p-sortIcon
+                                field="addedBy"></p-sortIcon>
+                            </th>
+                            <th pSortableColumn="addedDate">addedDate <p-sortIcon
+                                field="addedDate"></p-sortIcon>
+                            </th>
+                            <th pSortableColumn="updatedBy">updatedBy <p-sortIcon
+                                    field="updatedBy"></p-sortIcon>
+                            </th>
+                        <th pSortableColumn="updatedDate">updatedDate <p-sortIcon
+                                field="updatedDate"></p-sortIcon>
+                        </th>
                         </tr>
                     </ng-template>
                     <ng-template pTemplate="body" let-Patient>
@@ -51,7 +72,15 @@
                             <td>{{Patient.address}} </td>
                             <td>{{Patient.reasonForVisit}}</td>
                             <td>{{Patient.patientReports}}</td>
+                            <td>{{Patient.insuranceDetails}} </td>
+                            <td>{{Patient.medicalHistory}}</td>
+                            <td>{{Patient.dentalHistory}} </td>
+                            <td>{{Patient.dateOfBirth+'Z' | date:'medium'}}</td>
                             <td>{{Patient.preferredDateAndTime+'Z' | date:'medium'}}</td>
+                            <td>{{Patient.addedBy}}</td>
+                            <td>{{Patient.addedDate}} </td>
+                            <td>{{Patient.updatedBy}}</td>
+                            <td>{{Patient.updatedDate}}</td>
                         </tr>
                     </ng-template>
                     <ng-template pTemplate="emptymessage">
