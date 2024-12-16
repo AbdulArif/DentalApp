@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { ToastrService } from 'ngx-toastr';
+import { MenuItem } from 'primeng/api';
 import { Subscription } from 'rxjs';
 import { AuthenticationService } from 'src/app/services/core/authentication.service';
 import { PatientService } from 'src/app/services/patient/patient-service.service';
@@ -16,6 +17,9 @@ export class PatientComponent implements OnInit {
   userId!: string
   clinicName!: string
   userName!: string
+   items!: MenuItem[];
+   selectedPatient!: any
+   selectedUser: any
 
   constructor(
     private formBuilder: UntypedFormBuilder,
@@ -32,6 +36,12 @@ export class PatientComponent implements OnInit {
     this.clinicName = this.authenticationService.clinicName()
     this.userName = this.authenticationService.currentUserFirstName() + ' ' + this.authenticationService.currentUserLastName();
     this.GetMyPatient();
+    this.items = [
+      { label: 'View/Edit', icon: 'bi bi-pencil-square', command: () => this.viewUser(this.selectedPatient) }
+    ]
+  }
+  viewUser(selectedPatient: any): void {
+    throw new Error('Method not implemented.');
   }
 
   Patient_loading: boolean = false

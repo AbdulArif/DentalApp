@@ -3,6 +3,8 @@
         <div class="card">
             <div class="card-body p-0">
                 <p-table #dt1 [value]="Patients" dataKey="id" [rows]="10" [showCurrentPageReport]="true"
+                [(contextMenuSelection)]="selectedUser"
+                    [contextMenu]="cm"
                     sortMode="multiple" [rowsPerPageOptions]="[10,25,50]"
                     styleClass="p-datatable-sm p-datatable-striped" [paginator]="true"
                     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
@@ -94,3 +96,5 @@
 
     </div>
 </div>
+
+<p-contextMenu #cm [model]="items"></p-contextMenu>
