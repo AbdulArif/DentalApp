@@ -3,12 +3,12 @@
         <div class="card">
             <div class="card-body p-0">
                 <p-table #dt1 [value]="Patients" dataKey="id" [rows]="10" [showCurrentPageReport]="true"
-                [(contextMenuSelection)]="selectedUser"
+                [(contextMenuSelection)]="selectedPatient"
                     [contextMenu]="cm"
                     sortMode="multiple" [rowsPerPageOptions]="[10,25,50]"
                     styleClass="p-datatable-sm p-datatable-striped" [paginator]="true"
                     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-                    [globalFilterFields]="['fullName','phoneNumber','address','reasonForVisit', 'patientReports']">
+                    [globalFilterFields]="['fullName','address','reasonForVisit', 'patientReports', 'insuranceDetails', 'medicalHistory']">
                     <ng-template pTemplate="caption">
                         <div class="d-flex bd-highlight">
                             <div class="me-auto">Patients<span *ngIf="Patient_loading"
@@ -21,9 +21,9 @@
                                     aria-label="search" aria-describedby="basic-search">
                             </div>
                             <div class="me-0">
-                                <!-- <button type="button" class="btn btn-sm btn-primary shadow-sm" (click)="showDialog()">
+                                <button type="button" class="btn btn-sm btn-primary shadow-sm" (click)="showDialog()">
                                     <i class="bi bi-plus-square-fill me-2"></i>Add User
-                                </button> -->
+                                </button>
                             </div>
                         </div>
                     </ng-template>
@@ -45,15 +45,15 @@
                             </th>
                             <th pSortableColumn="medicalHistory">medicalHistory <p-sortIcon field="medicalHistory"></p-sortIcon>
                             </th>
-                            <th pSortableColumn="dentalHistory">dentalHistory <p-sortIcon field="dentalHistory"></p-sortIcon>
-                            </th>
+                            <!-- <th pSortableColumn="dentalHistory">dentalHistory <p-sortIcon field="dentalHistory"></p-sortIcon>
+                            </th> -->
                             <th pSortableColumn="dateOfBirth">dateOfBirth <p-sortIcon
                                     field="dateOfBirth"></p-sortIcon>
                             </th>
                             <th pSortableColumn="preferredDateAndTime">Visit Date <p-sortIcon
                                     field="preferredDateAndTime"></p-sortIcon>
                             </th>
-                            <th pSortableColumn="addedBy">addedBy <p-sortIcon
+                            <!-- <th pSortableColumn="addedBy">addedBy <p-sortIcon
                                 field="addedBy"></p-sortIcon>
                             </th>
                             <th pSortableColumn="addedDate">addedDate <p-sortIcon
@@ -64,7 +64,7 @@
                             </th>
                         <th pSortableColumn="updatedDate">updatedDate <p-sortIcon
                                 field="updatedDate"></p-sortIcon>
-                        </th>
+                        </th> -->
                         </tr>
                     </ng-template>
                     <ng-template pTemplate="body" let-Patient>
@@ -76,13 +76,13 @@
                             <td>{{Patient.patientReports}}</td>
                             <td>{{Patient.insuranceDetails}} </td>
                             <td>{{Patient.medicalHistory}}</td>
-                            <td>{{Patient.dentalHistory}} </td>
+                            <!-- <td>{{Patient.dentalHistory}} </td> -->
                             <td>{{Patient.dateOfBirth+'Z' | date:'medium'}}</td>
                             <td>{{Patient.preferredDateAndTime+'Z' | date:'medium'}}</td>
-                            <td>{{Patient.addedBy}}</td>
+                            <!-- <td>{{Patient.addedBy}}</td>
                             <td>{{Patient.addedDate}} </td>
                             <td>{{Patient.updatedBy}}</td>
-                            <td>{{Patient.updatedDate}}</td>
+                            <td>{{Patient.updatedDate}}</td> -->
                         </tr>
                     </ng-template>
                     <ng-template pTemplate="emptymessage">
@@ -96,5 +96,115 @@
 
     </div>
 </div>
+
+<!--  User Add and update user -->
+<p-dialog [(visible)]="display" [modal]="true" [draggable]="true" position="right" [resizable]="false"
+    [baseZIndex]="10000" [transitionOptions]="'125ms'" [style]="{width: '20rem'}" (onHide)="resetCreateUserForm()">
+    <ng-template pTemplate="header">
+        {{createPatientForm.get('userId')?.value?"Update User":"Add Patient"}}
+    </ng-template>
+    <form [formGroup]="createPatientForm" (ngSubmit)="onSubmit()">
+        <div class="mb-2">
+            <input class="form-control form-control-sm shadow-none" type="text" placeholder="Full Name"
+                aria-label="first-name" formControlName="fullName"
+                [ngClass]="{ 'is-invalid': f['fullName'].touched && f['fullName'].errors }">
+        </div>
+        <div class="mb-2">
+            <input class="form-control form-control-sm shadow-none" type="date" placeholder="Date Of Birth"
+                aria-label="last-name" formControlName="dateOfBirth"
+                [ngClass]="{ 'is-invalid': f['dateOfBirth'].touched && f['dateOfBirth'].errors }">
+        </div>
+        <!-- <div class="mb-2">
+            <input class="form-control form-control-sm shadow-none" type="text" placeholder="Country Code"
+                aria-label="last-name" formControlName="countryCode"
+                [ngClass]="{ 'is-invalid': f['countryCode'].touched && f['countryCode'].errors }">
+        </div> -->
+        <div class="mb-2">
+            <input class="form-control form-control-sm shadow-none" type="number" placeholder="Phone Number"
+                aria-label="last-name" formControlName="phoneNumber"
+                [ngClass]="{ 'is-invalid': f['phoneNumber'].touched && f['phoneNumber'].errors }">
+        </div>
+        <div class="mb-2">
+            <input class="form-control form-control-sm shadow-none" type="text" placeholder="address" aria-label="Address"
+                formControlName="address" [ngClass]="{ 'is-invalid': f['address'].touched && f['address'].errors }">
+        </div>
+        <div class="mb-2">
+            <input class="form-control form-control-sm shadow-none" type="text" placeholder="Reason For Visit"
+                aria-label="last-name" formControlName="reasonForVisit"
+                [ngClass]="{ 'is-invalid': f['reasonForVisit'].touched && f['reasonForVisit'].errors }">
+        </div>
+        <div class="mb-2">
+            <input class="form-control form-control-sm shadow-none" type="text" placeholder="Patient Reports"
+                aria-label="last-name" formControlName="patientReports"
+                [ngClass]="{ 'is-invalid': f['patientReports'].touched && f['patientReports'].errors }">
+        </div>
+        <div class="mb-2">
+            <input class="form-control form-control-sm shadow-none" type="text" placeholder="Insurance Details"
+                aria-label="last-name" formControlName="insuranceDetails"
+                [ngClass]="{ 'is-invalid': f['insuranceDetails'].touched && f['insuranceDetails'].errors }">
+        </div>
+        <div class="mb-2">
+            <input class="form-control form-control-sm shadow-none" type="text" placeholder="Medical History"
+                aria-label="last-name" formControlName="medicalHistory"
+                [ngClass]="{ 'is-invalid': f['medicalHistory'].touched && f['medicalHistory'].errors }">
+        </div>
+        <div class="mb-2">
+            <input class="form-control form-control-sm shadow-none" type="date" placeholder="Visit Date"
+                aria-label="last-name" formControlName="preferredDateAndTime"
+                [ngClass]="{ 'is-invalid': f['preferredDateAndTime'].touched && f['preferredDateAndTime'].errors }">
+        </div>
+        <!-- <div class="input-group input-group-sm mb-3" *ngIf="enablePass">
+            <input type="text" class="form-control form-control-sm shadow-none"
+                [type]="tieldToggleService.fieldTextType ? 'text' : 'password'" placeholder="Password"
+                aria-label="password" autocomplete="new-password" formControlName="password"
+                aria-describedby="basic-addon2"
+                [ngClass]="{ 'is-invalid': f['password'].touched && f['password'].errors }"
+                *ngIf="!f['password'].disabled">
+            <span type="button" class="input-group-text" id="basic-addon2" (click)="toggleFieldTextType()">
+                <i class="bi" [ngClass]="{
+            'bi-eye-slash': !tieldToggleService.fieldTextType,
+            'bi-eye': tieldToggleService.fieldTextType
+          }"></i>
+            </span>
+        </div> -->
+        <!-- <div class="input-group input-group-sm mb-3" *ngIf="enablePass">
+            <input class="form-control form-control-sm shadow-none"
+                [type]="tieldToggleService.fieldTextType ? 'text' : 'password'" placeholder="Confirm Password"
+                aria-label="confirm-password" formControlName="confirmPassword"
+                [ngClass]="{ 'is-invalid': f['confirmPassword'].touched && f['confirmPassword'].errors }">
+            <span type="button" class="input-group-text" id="basic-addon2" (click)="toggleFieldTextType()">
+                <i class="bi" [ngClass]="{
+              'bi-eye-slash': !tieldToggleService.fieldTextType,
+              'bi-eye': tieldToggleService.fieldTextType
+            }"></i>
+            </span>
+        </div> -->
+        <div class="mb-0 d-flex">
+            <div class="me-2">
+                <button class="btn btn-primary btn-sm shadow-sm w-100" type="submit" [disabled]="!createPatientForm.valid">
+                    <div *ngIf="!createPatientForm_loading"><i class="bi bi-save-fill me-2"></i>Save</div>
+                    <div *ngIf="createPatientForm_loading" class="spinner-border spinner-border-sm text-warning"
+                        role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </button>
+            </div>
+            <!-- <div class="me-auto">
+                <button class="btn btn-sm btn-info shadow-sm" *ngIf="enablePass" tooltipPosition="top" [escape]="false"
+                    tooltipEvent="hover"
+                    pTooltip="<ul><li>Email has to be unique</li><li>Password<ul><li>has to be between 8 to 15 character long</li><li>at least one uppercase letter</li><li>at least one number</li><li>at least one special character (@$!%*?&)</li></ul></li></ul>">
+                    <i class="bi bi-info-circle"></i>
+                </button>
+            </div> -->
+            <div class="me-0">
+                <button [disabled]="createPatientForm_loading" class="btn btn-warning btn-sm shadow-sm w-100" type="button"
+                    (click)="resetCreateUserForm()">
+                    <div><i class="bi bi-exclamation-triangle me-2"></i>Reset</div>
+                </button>
+            </div>
+
+        </div>
+    </form>
+</p-dialog>
 
 <p-contextMenu #cm [model]="items"></p-contextMenu>
