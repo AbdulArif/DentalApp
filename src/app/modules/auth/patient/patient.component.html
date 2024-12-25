@@ -153,32 +153,6 @@
                 aria-label="last-name" formControlName="preferredDateAndTime"
                 [ngClass]="{ 'is-invalid': f['preferredDateAndTime'].touched && f['preferredDateAndTime'].errors }">
         </div>
-        <!-- <div class="input-group input-group-sm mb-3" *ngIf="enablePass">
-            <input type="text" class="form-control form-control-sm shadow-none"
-                [type]="tieldToggleService.fieldTextType ? 'text' : 'password'" placeholder="Password"
-                aria-label="password" autocomplete="new-password" formControlName="password"
-                aria-describedby="basic-addon2"
-                [ngClass]="{ 'is-invalid': f['password'].touched && f['password'].errors }"
-                *ngIf="!f['password'].disabled">
-            <span type="button" class="input-group-text" id="basic-addon2" (click)="toggleFieldTextType()">
-                <i class="bi" [ngClass]="{
-            'bi-eye-slash': !tieldToggleService.fieldTextType,
-            'bi-eye': tieldToggleService.fieldTextType
-          }"></i>
-            </span>
-        </div> -->
-        <!-- <div class="input-group input-group-sm mb-3" *ngIf="enablePass">
-            <input class="form-control form-control-sm shadow-none"
-                [type]="tieldToggleService.fieldTextType ? 'text' : 'password'" placeholder="Confirm Password"
-                aria-label="confirm-password" formControlName="confirmPassword"
-                [ngClass]="{ 'is-invalid': f['confirmPassword'].touched && f['confirmPassword'].errors }">
-            <span type="button" class="input-group-text" id="basic-addon2" (click)="toggleFieldTextType()">
-                <i class="bi" [ngClass]="{
-              'bi-eye-slash': !tieldToggleService.fieldTextType,
-              'bi-eye': tieldToggleService.fieldTextType
-            }"></i>
-            </span>
-        </div> -->
         <div class="mb-0 d-flex">
             <div class="me-2">
                 <button class="btn btn-primary btn-sm shadow-sm w-100" type="submit" [disabled]="!createPatientForm.valid">
