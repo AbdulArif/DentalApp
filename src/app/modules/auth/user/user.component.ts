@@ -171,9 +171,9 @@ export class UserComponent implements OnInit {
       password: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(20)]],
       confirmPassword: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(20)]],
       Clienturl: clienturl,
-      addedBy: this.authenticationService.currentUserFirstName() + " " + this.authenticationService.currentUserLastName(),
+      addedBy: this.userName,
       addedDate: this.todaysDate.toISOString(),
-      updatedBy: this.authenticationService.currentUserFirstName() + " " + this.authenticationService.currentUserLastName(),
+      updatedBy: this.userName,
       updatedDate: this.todaysDate.toISOString()
     });
   }
@@ -239,7 +239,7 @@ export class UserComponent implements OnInit {
       role: user.roleName,
       addedBy: user.employee.addedBy,
       addedDate: user.employee.addedDate,
-      updatedBy: this.authenticationService.currentUserFirstName() + " " + this.authenticationService.currentUserLastName(),
+      updatedBy: this.userName,
       updatedDate: this.todaysDate.toISOString()
     })
     this.showDialog()

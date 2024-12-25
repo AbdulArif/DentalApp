@@ -48,7 +48,7 @@ export class PatientComponent implements OnInit {
     ]
     this.buildCreatePatientForm();
   }
-  
+
 
   Patient_loading: boolean = false
   Patients: any[] = [];
@@ -87,15 +87,15 @@ export class PatientComponent implements OnInit {
       dateOfBirth: ['', [Validators.required, Validators.maxLength(11)]],
       phoneNumber: ['', [Validators.required, Validators.maxLength(11)]],
       address: ['', [Validators.required, Validators.maxLength(200)]],
-      reasonForVisit: ['', [ Validators.maxLength(100)]],
-      patientReports: ['', [ Validators.maxLength(100)]],
-      insuranceDetails: ['', [ Validators.maxLength(100)]],
-      dentalHistory: ['D', [ Validators.maxLength(100)]],
-      medicalHistory: ['', [ Validators.maxLength(100)]],
+      reasonForVisit: ['', [Validators.maxLength(100)]],
+      patientReports: ['', [Validators.maxLength(100)]],
+      insuranceDetails: ['', [Validators.maxLength(100)]],
+      dentalHistory: ['D', [Validators.maxLength(100)]],
+      medicalHistory: ['', [Validators.maxLength(100)]],
       preferredDateAndTime: ['', [Validators.required, Validators.maxLength(11)]],
-      addedBy: this.authenticationService.currentUserFirstName() + " " + this.authenticationService.currentUserLastName(),
+      addedBy: this.userName,
       addedDate: this.todaysDate.toISOString(),
-      updatedBy: this.authenticationService.currentUserFirstName() + " " + this.authenticationService.currentUserLastName(),
+      updatedBy: this.userName,
       updatedDate: this.todaysDate.toISOString()
     });
   }
@@ -129,7 +129,7 @@ export class PatientComponent implements OnInit {
       }
     );
   }
-  
+
   showDialog() {
     this.display = true;
     if (this.createPatientForm.get('userId')?.value) {
@@ -152,19 +152,24 @@ export class PatientComponent implements OnInit {
   viewPatient(patient: any): void {
     console.log("Selected user :", patient)
     this.createPatientForm.patchValue({
-      userId: patient.id,
+      patientId: patient.patientId,
+      userId: patient.userId,
       clinicId: patient.clinicId,
       parentId: patient.parentId,
+      dentalHistory: patient.dentalHistory,
       fullName: patient.fullName,
       dateOfBirth: patient.dateOfBirth,
-      countryCode: patient.countryCode,
       phoneNumber: patient.phoneNumber,
       address: patient.address,
       reasonForVisit: patient.reasonForVisit,
       patientReports: patient.patientReports,
       insuranceDetails: patient.insuranceDetails,
       medicalHistory: patient.medicalHistory,
-      preferredDateAndTime: this.todaysDate.toISOString()
+      preferredDateAndTime: this.todaysDate.toISOString(),
+      addedBy: patient.addedBy,
+      addedDate: patient.addedDate,
+      updatedBy: this.authenticationService.currentUserFirstName() + " " + this.authenticationService.currentUserLastName(),
+      updatedDate: this.todaysDate.toISOString()
     })
     this.showDialog()
   }

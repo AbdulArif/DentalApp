@@ -3,10 +3,8 @@
         <div class="card">
             <div class="card-body p-0">
                 <p-table #dt1 [value]="Patients" dataKey="id" [rows]="10" [showCurrentPageReport]="true"
-                [(contextMenuSelection)]="selectedPatient"
-                    [contextMenu]="cm"
-                    sortMode="multiple" [rowsPerPageOptions]="[10,25,50]"
-                    styleClass="p-datatable-sm p-datatable-striped" [paginator]="true"
+                    [(contextMenuSelection)]="selectedPatient" [contextMenu]="cm" sortMode="multiple"
+                    [rowsPerPageOptions]="[10,25,50]" styleClass="p-datatable-sm p-datatable-striped" [paginator]="true"
                     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
                     [globalFilterFields]="['fullName','address','reasonForVisit', 'patientReports', 'insuranceDetails', 'medicalHistory']">
                     <ng-template pTemplate="caption">
@@ -35,20 +33,20 @@
                             </th>
                             <th pSortableColumn="address">Address <p-sortIcon field="address"></p-sortIcon>
                             </th>
-                            <th pSortableColumn="reasonForVisit">Reason <p-sortIcon
-                                    field="reasonForVisit"></p-sortIcon>
+                            <th pSortableColumn="reasonForVisit">Reason <p-sortIcon field="reasonForVisit"></p-sortIcon>
                             </th>
                             <th pSortableColumn="patientReports">Reports <p-sortIcon
                                     field="patientReports"></p-sortIcon>
                             </th>
-                            <th pSortableColumn="insuranceDetails">insuranceDetails <p-sortIcon field="insuranceDetails"></p-sortIcon>
+                            <th pSortableColumn="insuranceDetails">insuranceDetails <p-sortIcon
+                                    field="insuranceDetails"></p-sortIcon>
                             </th>
-                            <th pSortableColumn="medicalHistory">medicalHistory <p-sortIcon field="medicalHistory"></p-sortIcon>
+                            <th pSortableColumn="medicalHistory">medicalHistory <p-sortIcon
+                                    field="medicalHistory"></p-sortIcon>
                             </th>
                             <!-- <th pSortableColumn="dentalHistory">dentalHistory <p-sortIcon field="dentalHistory"></p-sortIcon>
                             </th> -->
-                            <th pSortableColumn="dateOfBirth">dateOfBirth <p-sortIcon
-                                    field="dateOfBirth"></p-sortIcon>
+                            <th pSortableColumn="dateOfBirth">dateOfBirth <p-sortIcon field="dateOfBirth"></p-sortIcon>
                             </th>
                             <th pSortableColumn="preferredDateAndTime">Visit Date <p-sortIcon
                                     field="preferredDateAndTime"></p-sortIcon>
@@ -101,7 +99,7 @@
 <p-dialog [(visible)]="display" [modal]="true" [draggable]="true" position="right" [resizable]="false"
     [baseZIndex]="10000" [transitionOptions]="'125ms'" [style]="{width: '20rem'}" (onHide)="resetCreateUserForm()">
     <ng-template pTemplate="header">
-        {{createPatientForm.get('userId')?.value?"Update User":"Add Patient"}}
+        {{createPatientForm.get('patientId')?.value?"Update Patient":"Add Patient"}}
     </ng-template>
     <form [formGroup]="createPatientForm" (ngSubmit)="onSubmit()">
         <div class="mb-2">
@@ -125,8 +123,9 @@
                 [ngClass]="{ 'is-invalid': f['phoneNumber'].touched && f['phoneNumber'].errors }">
         </div>
         <div class="mb-2">
-            <input class="form-control form-control-sm shadow-none" type="text" placeholder="address" aria-label="Address"
-                formControlName="address" [ngClass]="{ 'is-invalid': f['address'].touched && f['address'].errors }">
+            <input class="form-control form-control-sm shadow-none" type="text" placeholder="address"
+                aria-label="Address" formControlName="address"
+                [ngClass]="{ 'is-invalid': f['address'].touched && f['address'].errors }">
         </div>
         <div class="mb-2">
             <input class="form-control form-control-sm shadow-none" type="text" placeholder="Reason For Visit"
@@ -155,7 +154,8 @@
         </div>
         <div class="mb-0 d-flex">
             <div class="me-2">
-                <button class="btn btn-primary btn-sm shadow-sm w-100" type="submit" [disabled]="!createPatientForm.valid">
+                <button class="btn btn-primary btn-sm shadow-sm w-100" type="submit"
+                    [disabled]="!createPatientForm.valid">
                     <div *ngIf="!createPatientForm_loading"><i class="bi bi-save-fill me-2"></i>Save</div>
                     <div *ngIf="createPatientForm_loading" class="spinner-border spinner-border-sm text-warning"
                         role="status">
@@ -171,8 +171,8 @@
                 </button>
             </div> -->
             <div class="me-0">
-                <button [disabled]="createPatientForm_loading" class="btn btn-warning btn-sm shadow-sm w-100" type="button"
-                    (click)="resetCreateUserForm()">
+                <button [disabled]="createPatientForm_loading" class="btn btn-warning btn-sm shadow-sm w-100"
+                    type="button" (click)="resetCreateUserForm()">
                     <div><i class="bi bi-exclamation-triangle me-2"></i>Reset</div>
                 </button>
             </div>
