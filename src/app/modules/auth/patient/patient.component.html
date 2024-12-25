@@ -6,7 +6,7 @@
                     [(contextMenuSelection)]="selectedPatient" [contextMenu]="cm" sortMode="multiple"
                     [rowsPerPageOptions]="[10,25,50]" styleClass="p-datatable-sm p-datatable-striped" [paginator]="true"
                     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-                    [globalFilterFields]="['fullName','address','reasonForVisit', 'patientReports', 'insuranceDetails', 'medicalHistory']">
+                    [globalFilterFields]="['fullName','address','reasonForVisit', 'insuranceDetails', 'medicalHistory']">
                     <ng-template pTemplate="caption">
                         <div class="d-flex bd-highlight">
                             <div class="me-auto">Patients<span *ngIf="Patient_loading"
@@ -34,9 +34,6 @@
                             <th pSortableColumn="address">Address <p-sortIcon field="address"></p-sortIcon>
                             </th>
                             <th pSortableColumn="reasonForVisit">Reason <p-sortIcon field="reasonForVisit"></p-sortIcon>
-                            </th>
-                            <th pSortableColumn="patientReports">Reports <p-sortIcon
-                                    field="patientReports"></p-sortIcon>
                             </th>
                             <th pSortableColumn="insuranceDetails">insuranceDetails <p-sortIcon
                                     field="insuranceDetails"></p-sortIcon>
@@ -71,7 +68,6 @@
                             <td>{{Patient.phoneNumber}}</td>
                             <td>{{Patient.address}} </td>
                             <td>{{Patient.reasonForVisit}}</td>
-                            <td>{{Patient.patientReports}}</td>
                             <td>{{Patient.insuranceDetails}} </td>
                             <td>{{Patient.medicalHistory}}</td>
                             <!-- <td>{{Patient.dentalHistory}} </td> -->
@@ -118,7 +114,7 @@
                 [ngClass]="{ 'is-invalid': f['countryCode'].touched && f['countryCode'].errors }">
         </div> -->
         <div class="mb-2">
-            <input class="form-control form-control-sm shadow-none" type="number" placeholder="Phone Number"
+            <input class="form-control form-control-sm shadow-none" type="text" placeholder="Phone Number"
                 aria-label="last-name" formControlName="phoneNumber"
                 [ngClass]="{ 'is-invalid': f['phoneNumber'].touched && f['phoneNumber'].errors }">
         </div>
@@ -132,11 +128,11 @@
                 aria-label="last-name" formControlName="reasonForVisit"
                 [ngClass]="{ 'is-invalid': f['reasonForVisit'].touched && f['reasonForVisit'].errors }">
         </div>
-        <div class="mb-2">
+        <!-- <div class="mb-2">
             <input class="form-control form-control-sm shadow-none" type="text" placeholder="Patient Reports"
                 aria-label="last-name" formControlName="patientReports"
                 [ngClass]="{ 'is-invalid': f['patientReports'].touched && f['patientReports'].errors }">
-        </div>
+        </div> -->
         <div class="mb-2">
             <input class="form-control form-control-sm shadow-none" type="text" placeholder="Insurance Details"
                 aria-label="last-name" formControlName="insuranceDetails"
