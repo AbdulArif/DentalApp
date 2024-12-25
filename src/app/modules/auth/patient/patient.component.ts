@@ -4,7 +4,6 @@ import { Title } from '@angular/platform-browser';
 import { ToastrService } from 'ngx-toastr';
 import { MenuItem } from 'primeng/api';
 import { Subscription } from 'rxjs';
-import { UserService } from 'src/app/services/account/user.service';
 import { AuthenticationService } from 'src/app/services/core/authentication.service';
 import { PatientService } from 'src/app/services/patient/patient-service.service';
 import { FieldToggleService } from 'src/app/services/shared/field-toggle.service';
@@ -49,25 +48,7 @@ export class PatientComponent implements OnInit {
     ]
     this.buildCreatePatientForm();
   }
-  viewPatient(patient: any): void {
-    console.log("Selected user :", patient)
-    this.createPatientForm.patchValue({
-      userId: patient.id,
-      clinicId: patient.clinicId,
-      parentId: patient.parentId,
-      fullName: patient.fullName,
-      dateOfBirth: patient.dateOfBirth,
-      countryCode: patient.countryCode,
-      phoneNumber: patient.phoneNumber,
-      address: patient.address,
-      reasonForVisit: patient.reasonForVisit,
-      patientReports: patient.patientReports,
-      insuranceDetails: patient.insuranceDetails,
-      medicalHistory: patient.medicalHistory,
-      preferredDateAndTime: this.todaysDate.toISOString()
-    })
-    this.showDialog()
-  }
+  
 
   Patient_loading: boolean = false
   Patients: any[] = [];
@@ -138,7 +119,7 @@ export class PatientComponent implements OnInit {
         },
         error: (error: any) => {
           this.createPatientForm_loading = false;
-          this.toastr.error("Failed to save user!", 'Error', { positionClass: 'toast-bottom-right', closeButton: true, progressBar: true, progressAnimation: 'decreasing' });
+          this.toastr.error("Failed to save patient!", 'Error', { positionClass: 'toast-bottom-right', closeButton: true, progressBar: true, progressAnimation: 'decreasing' });
         },
         complete: () => {
           this.buildCreatePatientForm();
@@ -148,7 +129,7 @@ export class PatientComponent implements OnInit {
       }
     );
   }
-
+  
   showDialog() {
     this.display = true;
     if (this.createPatientForm.get('userId')?.value) {
@@ -165,6 +146,27 @@ export class PatientComponent implements OnInit {
 
   toggleFieldTextType() {
     this.tieldToggleService.toggleField();
+  }
+
+
+  viewPatient(patient: any): void {
+    console.log("Selected user :", patient)
+    this.createPatientForm.patchValue({
+      userId: patient.id,
+      clinicId: patient.clinicId,
+      parentId: patient.parentId,
+      fullName: patient.fullName,
+      dateOfBirth: patient.dateOfBirth,
+      countryCode: patient.countryCode,
+      phoneNumber: patient.phoneNumber,
+      address: patient.address,
+      reasonForVisit: patient.reasonForVisit,
+      patientReports: patient.patientReports,
+      insuranceDetails: patient.insuranceDetails,
+      medicalHistory: patient.medicalHistory,
+      preferredDateAndTime: this.todaysDate.toISOString()
+    })
+    this.showDialog()
   }
 
 }

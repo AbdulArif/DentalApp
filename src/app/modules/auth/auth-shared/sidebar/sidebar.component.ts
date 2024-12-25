@@ -54,6 +54,11 @@ export class SidebarComponent implements OnInit {
       text: "User Activities",
       link: "./activities",
       icon: "bi-activity"
+    },
+    {
+      text: "Patients",
+      link: "./patient",
+      icon: "bi bi-clipboard2-pulse"
     }
   ]
 

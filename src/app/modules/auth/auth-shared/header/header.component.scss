@@ -20,6 +20,9 @@ nav {
     // border: 2px solid var(--color);
     transition: 0.5s ease-in-out;
   }
+  #profile-image:hover .profile-img {
+    border: 2px solid #007bff; /* Change border color on hover */
+  }
   
   button#feature-btn {
     background-color: var(--color);
