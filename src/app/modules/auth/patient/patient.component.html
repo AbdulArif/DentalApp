@@ -93,7 +93,7 @@
 
 <!--  User Add and update user -->
 <p-dialog [(visible)]="display" [modal]="true" [draggable]="true" position="right" [resizable]="false"
-    [baseZIndex]="10000" [transitionOptions]="'125ms'" [style]="{width: '20rem'}" (onHide)="resetCreateUserForm()">
+    [baseZIndex]="10000" [transitionOptions]="'125ms'" [style]="{width: '27rem'}" (onHide)="resetCreateUserForm()">
     <ng-template pTemplate="header">
         {{createPatientForm.get('patientId')?.value?"Update Patient":"Add Patient"}}
     </ng-template>
@@ -104,9 +104,17 @@
                 [ngClass]="{ 'is-invalid': f['fullName'].touched && f['fullName'].errors }">
         </div>
         <div class="mb-2">
-            <input class="form-control form-control-sm shadow-none" type="date" placeholder="Date Of Birth"
-                aria-label="last-name" formControlName="dateOfBirth"
-                [ngClass]="{ 'is-invalid': f['dateOfBirth'].touched && f['dateOfBirth'].errors }">
+            <input
+    class="form-control form-control-sm shadow-none"
+    type="text"
+    placeholder="Date of Birth (YYYY-MM-DD)"
+    aria-label="Date of Birth"
+    formControlName="dateOfBirth"
+    [ngClass]="{ 'is-invalid': f['dateOfBirth'].touched && f['dateOfBirth'].errors }"
+    (focus)="convertToDate($event)"
+    (blur)="convertToText($event)"
+>
+
         </div>
         <!-- <div class="mb-2">
             <input class="form-control form-control-sm shadow-none" type="text" placeholder="Country Code"
@@ -144,9 +152,11 @@
                 [ngClass]="{ 'is-invalid': f['medicalHistory'].touched && f['medicalHistory'].errors }">
         </div>
         <div class="mb-2">
-            <input class="form-control form-control-sm shadow-none" type="date" placeholder="Visit Date"
+            <input class="form-control form-control-sm shadow-none" type="text" placeholder="Visit Date(YYYY-MM-DD)"
                 aria-label="last-name" formControlName="preferredDateAndTime"
-                [ngClass]="{ 'is-invalid': f['preferredDateAndTime'].touched && f['preferredDateAndTime'].errors }">
+                [ngClass]="{ 'is-invalid': f['preferredDateAndTime'].touched && f['preferredDateAndTime'].errors }"
+                (focus)="convertToDate($event)"
+    (blur)="convertToText($event)">
         </div>
         <div class="mb-0 d-flex">
             <div class="me-2">

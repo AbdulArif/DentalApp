@@ -29,4 +29,14 @@ export class PatientService {
       }
       return this.http.post<any>(`${environment.apiUrl}/api/Patient/CreatePatient`, model, options);
     }
+  DeletePatient(patientId: string, clinicId: string, userId: string): Observable<any>{
+    const options = {
+      headers: new HttpHeaders().append('Content-Type', 'application/json'),
+      params: new HttpParams()
+        .append('PatientId', patientId)
+        .append('ClinicId', clinicId)
+        .append('UserId', userId)
+    }
+    return this.http.delete<any>(`${environment.apiUrl}/api/Patient/DeletePatient`, options);
+  }  
 }

@@ -3,3 +3,8 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
+.btn:hover{
+    background-color: blueviolet;
+    color: white;
+}
+

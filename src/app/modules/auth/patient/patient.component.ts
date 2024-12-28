@@ -22,6 +22,7 @@ export class PatientComponent implements OnInit {
   createPatientForm!: UntypedFormGroup
   createPatientForm_loading: boolean = false;
   todaysDate: Date = new Date();
+  PatientId!: string
 
   default_select!: null;
 
@@ -44,7 +45,8 @@ export class PatientComponent implements OnInit {
     this.userName = this.authenticationService.currentUserFirstName() + ' ' + this.authenticationService.currentUserLastName();
     this.GetMyPatient();
     this.items = [
-      { label: 'View/Edit', icon: 'bi bi-pencil-square', command: () => this.viewPatient(this.selectedPatient) }
+      { label: 'View/Edit', icon: 'bi bi-pencil-square', command: () => this.viewPatient(this.selectedPatient) },
+      { label: 'Delete', icon: 'bi bi-trash', command: () => this.DeletePatient(this.selectedPatient) }
     ]
     this.buildCreatePatientForm();
   }
@@ -172,6 +174,41 @@ export class PatientComponent implements OnInit {
       updatedDate: this.todaysDate.toISOString()
     })
     this.showDialog()
+  }
+
+
+  convertToDate(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    input.type = 'date';
+  }
+  
+  convertToText(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (!input.value) {
+      input.type = 'text';
+    }
+  }
+  
+  DeletePatient(patient:any){
+    // console.log(patient)
+    // this.Patient_loading = true
+    this.getPatientSub = this.patientService.DeletePatient(patient.patientId, this.clinicId, this.userId).subscribe(
+      {
+        next: (response: any) => {
+          console.log("Patient Details :", response)
+          // this.Patient_loading = false
+          this.toastr.success('Patient Delete.', 'Error', { positionClass: 'toast-bottom-right', closeButton: true, progressBar: true, progressAnimation: 'decreasing' });
+
+          this.GetMyPatient()
+        },
+        error: (error: any) => {
+          this.toastr.error('Patient Not Delete.', 'Error', { positionClass: 'toast-bottom-right', closeButton: true, progressBar: true, progressAnimation: 'decreasing' });
+          // this.Patient_loading = false
+        },
+        complete: () => {
+        }
+      }
+    );
   }
 
 }
