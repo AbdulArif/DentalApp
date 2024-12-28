@@ -4,7 +4,7 @@
 @import 'tailwindcss/utilities';
 
 .btn:hover{
-    background-color: blueviolet;
+    background-color: blueviolet  !important;
     color: white;
 }
 

@@ -52,22 +52,22 @@ export class PatientComponent implements OnInit {
   }
 
 
-  Patient_loading: boolean = false
-  Patients: any[] = [];
+  patient_loading: boolean = false
+  patients: any[] = [];
   getPatientSub !: Subscription
 
   GetMyPatient() {
-    this.Patient_loading = true
+    this.patient_loading = true
     this.getPatientSub = this.patientService.GetPatients(this.clinicId, this.userId).subscribe(
       {
         next: (response: any) => {
           console.log("Patient Details :", response)
-          this.Patients = response;
-          this.Patient_loading = false
+          this.patients = response;
+          this.patient_loading = false
         },
         error: (error: any) => {
           this.toastr.error('Patient Not Found.', 'Error', { positionClass: 'toast-bottom-right', closeButton: true, progressBar: true, progressAnimation: 'decreasing' });
-          this.Patient_loading = false
+          this.patient_loading = false
         },
         complete: () => {
         }
@@ -191,19 +191,19 @@ export class PatientComponent implements OnInit {
   
   DeletePatient(patient:any){
     // console.log(patient)
-    // this.Patient_loading = true
+    // this.patient_loading = true
     this.getPatientSub = this.patientService.DeletePatient(patient.patientId, this.clinicId, this.userId).subscribe(
       {
         next: (response: any) => {
           console.log("Patient Details :", response)
-          // this.Patient_loading = false
-          this.toastr.success('Patient Delete.', 'Error', { positionClass: 'toast-bottom-right', closeButton: true, progressBar: true, progressAnimation: 'decreasing' });
+          // this.patient_loading = false
+          this.toastr.success('Patient Delete.', 'Success', { positionClass: 'toast-bottom-right', closeButton: true, progressBar: true, progressAnimation: 'decreasing' });
 
           this.GetMyPatient()
         },
         error: (error: any) => {
           this.toastr.error('Patient Not Delete.', 'Error', { positionClass: 'toast-bottom-right', closeButton: true, progressBar: true, progressAnimation: 'decreasing' });
-          // this.Patient_loading = false
+          // this.patient_loading = false
         },
         complete: () => {
         }

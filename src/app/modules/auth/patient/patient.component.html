@@ -2,14 +2,14 @@
     <div class="container-fluid">
         <div class="card">
             <div class="card-body p-0">
-                <p-table #dt1 [value]="Patients" dataKey="id" [rows]="10" [showCurrentPageReport]="true"
+                <p-table #dt1 [value]="patients" dataKey="id" [rows]="10" [showCurrentPageReport]="true"
                     [(contextMenuSelection)]="selectedPatient" [contextMenu]="cm" sortMode="multiple"
                     [rowsPerPageOptions]="[10,25,50]" styleClass="p-datatable-sm p-datatable-striped" [paginator]="true"
                     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
                     [globalFilterFields]="['fullName','address','reasonForVisit', 'insuranceDetails', 'medicalHistory']">
                     <ng-template pTemplate="caption">
                         <div class="d-flex bd-highlight">
-                            <div class="me-auto">Patients<span *ngIf="Patient_loading"
+                            <div class="me-auto">Patients<span *ngIf="patient_loading"
                                     class="spinner-border spinner-border-sm ms-4" role="status"
                                     aria-hidden="true"></span>
                             </div>
