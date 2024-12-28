@@ -123,7 +123,7 @@
         </div> -->
         <div class="mb-2">
             <input class="form-control form-control-sm shadow-none" type="text" placeholder="Phone Number"
-                aria-label="last-name" formControlName="phoneNumber"
+                aria-label="last-name" formControlName="phoneNumber" maxlength="10"
                 [ngClass]="{ 'is-invalid': f['phoneNumber'].touched && f['phoneNumber'].errors }">
         </div>
         <div class="mb-2">
