@@ -126,7 +126,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
 
   getUserprofileImage() {
     this.imageUrl = localStorage.getItem("userprofileImage") ? this.sanitizer.bypassSecurityTrustUrl(localStorage.getItem("userprofileImage")!) : "assets/user.svg"
-    this.imageUrlSub = this.uploadDownloadService.getBinaryImage(this.authenticationService.clinicId(), this.authenticationService.currentUserId()).subscribe({
+    this.imageUrlSub = this.uploadDownloadService.getBinaryImage(this.clinicId, this.userId).subscribe({
       next: (res: any) => {
         localStorage.setItem('userprofileImage', res.response);
         this.imageUrl = this.sanitizer.bypassSecurityTrustUrl(localStorage.getItem("userprofileImage")!);
@@ -141,7 +141,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
 
   getclinicLog(): void {
     this.clinicLogoUrl = localStorage.getItem("clinicLogo") ? this.sanitizer.bypassSecurityTrustUrl(localStorage.getItem("clinicLogo")!) : "assets/company.svg"
-    this.clinicLogoSub = this.uploadDownloadService.getBinaryclinicLogo(this.authenticationService.clinicId(), this.authenticationService.currentUserId()).subscribe({
+    this.clinicLogoSub = this.uploadDownloadService.getBinaryclinicLogo(this.clinicId, this.userId).subscribe({
       next: (res: any) => {
         localStorage.setItem('clinicLogo', res.response);
         this.clinicLogoUrl = this.sanitizer.bypassSecurityTrustUrl(localStorage.getItem("clinicLogo")!);
@@ -361,11 +361,11 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   }
 
   copyclinicId() {
-    // this.clipboard.copy(this.authenticationService.clinicId());
+    // this.clipboard.copy(this.clinicId);
     this.toastr.success('Clinic id copied!', '', { positionClass: 'toast-bottom-right' });
   }
   copyUserId() {
-    // this.clipboard.copy(this.authenticationService.currentUserId());
+    // this.clipboard.copy(this.userId);
     this.toastr.success('User id copied!', '', { positionClass: 'toast-bottom-right' });
   }
 
