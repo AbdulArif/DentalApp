@@ -100,8 +100,7 @@
                 <div class="accordion-body">
                   <div class="d-flex mb-3">
                     <div class="p-0 flex-grow-1 fs-5">{{user.email}}</div>
-                    <button class="btn btn-sm btn-warning" *ngIf="!user.emailConfirmed">Verify
-                      Email</button>
+                    <button class="btn btn-sm btn-warning" *ngIf="!user.emailConfirmed">Verify Email</button>
                     <div class="text-muted" *ngIf="user.emailConfirmed">
                       <i class="bi bi-check-circle-fill text-success me-2"></i>Email verified
                     </div>

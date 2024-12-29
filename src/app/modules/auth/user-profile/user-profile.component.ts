@@ -113,7 +113,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     this.user_loading = true
     this.userSub = this.userService.GetUser(this.userId).subscribe({
       next: (res) => {
-        console.log(res)
+        console.log("GetUser Value:", res)
         this.user = res;
         this.user_loading = false
         this.setUserDetailsToUpdate()
