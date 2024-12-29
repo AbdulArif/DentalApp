@@ -79,7 +79,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     $('[data-bs-toggle="tooltip"]').tooltip();
     this.getUser();
     this.getUserprofileImage();
-    this.getclinicLog();
+    this.getClinicLogo();
     this.buildChangePasswordForm();
     this.buildUpdateProfileForm();
 
@@ -137,9 +137,10 @@ export class UserProfileComponent implements OnInit, OnDestroy {
         }
       }
     })
+    console.log("Image Url:", this.imageUrl)
   }
 
-  getclinicLog(): void {
+  getClinicLogo(): void {
     this.clinicLogoUrl = localStorage.getItem("clinicLogo") ? this.sanitizer.bypassSecurityTrustUrl(localStorage.getItem("clinicLogo")!) : "assets/company.svg"
     this.clinicLogoSub = this.uploadDownloadService.getBinaryclinicLogo(this.clinicId, this.userId).subscribe({
       next: (res: any) => {
@@ -152,18 +153,18 @@ export class UserProfileComponent implements OnInit, OnDestroy {
         }
       }
     })
+    console.log("Clinic Logo Url:", this.clinicLogoUrl)
   }
 
   get g() { return this.passwordChangeForm.controls; }
 
   buildChangePasswordForm() {
-    this.passwordChangeForm = this.formBuilder.group(
-      {
-        userId: this.userId,
-        oldPassword: ['', Validators.required],
-        newPassword: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(15), Validators.pattern("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}$")]],
-        confirmPassword: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(15), Validators.pattern("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}$")]]
-      },
+    this.passwordChangeForm = this.formBuilder.group({
+      userId: this.userId,
+      oldPassword: ['', Validators.required],
+      newPassword: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(15), Validators.pattern("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}$")]],
+      confirmPassword: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(15), Validators.pattern("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}$")]]
+    },
       {
         validator: [Validation.match('newPassword', 'confirmPassword')]
       }
@@ -321,7 +322,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
         this.clinicLogoUploading = false
         this.clinic.nativeElement.value = null
         this.showCompnayLogoDialog = false
-        this.getclinicLog();
+        this.getClinicLogo();
         this.audioService.success();
         this.toastr.success('clinic logo updated!', 'Success', { positionClass: 'toast-bottom-right' })
         setTimeout(() => {
@@ -357,7 +358,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   hideCompnayLogoDialog(): void {
     this.clinic.nativeElement.value = null
     this.showCompnayLogoDialog = false;
-    this.getclinicLog();
+    this.getClinicLogo();
   }
 
   copyclinicId() {
