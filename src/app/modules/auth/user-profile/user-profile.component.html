@@ -1,0 +1,311 @@
+<div class="content">
+  <div class="container-fluid">
+    <div *ngIf="!user_loading">
+      <div class="row mb-2">
+        <div class="col-12 d-flex justify-content-center">
+          <div class="profile-picture">
+            <img [src]="imageUrl" alt="mdo" width="100" height="100" class="rounded-circle p-0">
+            <div class="overlay" (click)="displayProfilePictureDialog()" type="button">
+              <i class="bi bi-camera-fill"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mb-2">
+        <div class="col-12 d-flex justify-content-center" id="user-name">
+          {{user.firstName}} {{user.lastName}}
+        </div>
+      </div>
+      <div class="row mb-2">
+        <div class="col-12 d-flex justify-content-center">
+          <div class="me-2 fw-bolder">Clinic Id: {{authenticationService.clinicId()}}</div> <i type="button"
+            class="bi bi-clipboard2" pTooltip="Copy" tooltipPosition="top" tooltipEvent="hover"
+            (click)="copyclinicId()"></i>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-12 d-flex justify-content-center">
+          <div class="me-2 fw-bolder">User Id: {{authenticationService.currentUserId()}}</div> <i type="button"
+            class="bi bi-clipboard2" pTooltip="Copy" tooltipPosition="top" tooltipEvent="hover"
+            (click)="copyUserId()"></i>
+        </div>
+      </div>
+      <div class="row d-flex justify-content-center gx-2 gy-2 mb-2">
+        <div class="col-sm-5">
+          <form [formGroup]="updateProfileForm">
+            <div class="accordion" id="accordionProfile">
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="headingProfile">
+                  <button class="accordion-button shadow-none" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapseProfile" aria-expanded="true" aria-controls="collapseProfile">
+                    My Info
+                  </button>
+                </h2>
+                <div id="collapseProfile" class="accordion-collapse collapse show" aria-labelledby="headingProfile"
+                  data-bs-parent="#accordionProfile">
+                  <div class="accordion-body">
+                    <form class="row g-3">
+                      <div class="col-md-3">
+                        <label for="firstname" class="form-label">First Name</label>
+                        <input type="text" class="form-control form-control-sm" id="firstname"
+                          formControlName="firstName">
+                      </div>
+                      <div class="col-md-3">
+                        <label for="lastname" class="form-label">Last Name</label>
+                        <input type="text" class="form-control form-control-sm" id="lastname"
+                          formControlName="lastName">
+                      </div>
+                      <div class="col-md-3">
+                        <label for="countryCode" class="form-label">Country Code</label>
+                        <input type="text" class="form-control form-control-sm" id="countryCode" placeholder="+1"
+                          formControlName="countryCode">
+                      </div>
+                      <div class="col-md-3">
+                        <label for="phone" class="form-label">Phone</label>
+                        <input type="text" class="form-control form-control-sm" id="phone"
+                          formControlName="phoneNumber">
+                      </div>
+
+                      <!-- <div class="col-md-4">
+                                                  <label for="inputState" class="form-label">Counutry</label>
+                                                  <select id="inputState" class="form-select shadow-sm"
+                                                      [disabled]="!editProfile">
+                                                      <option selected>Choose...</option>
+                                                      <option>...</option>
+                                                  </select>
+                                              </div>
+                                              <div class="col-md-4">
+                                                  <label for="inputState" class="form-label">State</label>
+                                                  <select id="inputState" class="form-select shadow-sm"
+                                                      [disabled]="!editProfile">
+                                                      <option selected>Choose...</option>
+                                                      <option>...</option>
+                                                  </select>
+                                              </div>
+                                              <div class="col-md-4">
+                                                  <label for="inputCity" class="form-label">City</label>
+                                                  <input type="text" class="form-control shadow-sm" id="inputCity"
+                                                      placeholder="Cooch Behar" [disabled]="!editProfile">
+                                              </div>
+
+                                              <div class="col-10">
+                                                  <label for="inputAddress" class="form-label">Address</label>
+                                                  <input type="text" class="form-control shadow-sm" id="inputAddress"
+                                                      placeholder="1234 Main St" [disabled]="!editProfile">
+                                              </div>
+
+
+                                              <div class="col-md-2">
+                                                  <label for="inputZip" class="form-label">Zip</label>
+                                                  <input type="number" class="form-control shadow-sm" id="inputZip"
+                                                      placeholder="123456" [disabled]="!editProfile">
+                                              </div> -->
+
+                      <div class="col-12 d-flex">
+                        <button type="button" class="btn btn-sm btn-info shadow-sm me-auto" data-bs-toggle="tooltip"
+                          data-bs-placement="top" data-bs-title="Edit Info" (click)="onClickEditProfile()">
+                          Edit Profile
+                        </button>
+                        <button type="button" (click)="onSubmitUpdateProfileForm()"
+                          class="btn btn-sm shadow-sm btn-primary"
+                          [disabled]="!editProfile || updateProfileForm.invalid">
+                          <div *ngIf="!updateProfileForm_loading">Update Profile</div>
+                          <div *ngIf="updateProfileForm_loading" class="spinner-border spinner-border-sm" role="status">
+                          </div>
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="col-sm-5">
+          <div class="accordion" id="accordionEmail">
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingEmail">
+                <button class="accordion-button shadow-none" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#collapseEmail" aria-expanded="true" aria-controls="collapseEmail">
+                  Email
+                </button>
+              </h2>
+              <div id="collapseEmail" class="accordion-collapse collapse show" aria-labelledby="headingEmail"
+                data-bs-parent="#accordionEmail">
+                <div class="accordion-body">
+                  <div class="d-flex mb-3">
+                    <div class="p-0 flex-grow-1 fs-5">{{user.email}}</div>
+                    <button class="btn btn-sm btn-warning" *ngIf="!user.emailConfirmed">Verify
+                      Email</button>
+                    <div class="text-muted" *ngIf="user.emailConfirmed">
+                      <i class="bi bi-check-circle-fill text-success me-2"></i>Email verified
+                    </div>
+                  </div>
+                  <div>
+                    <ul>
+                      <li>To change your email, contact your administrator</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row d-flex justify-content-center gx-2 gy-2 mb-2">
+        <div class="col-sm-5">
+          <form [formGroup]="passwordChangeForm" (ngSubmit)="onSubmitChangePasswordForm()">
+            <div class="accordion" id="accord-password-parent">
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="Password-Headeng">
+                  <button class="accordion-button shadow-none" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#accord-password" aria-expanded="true" aria-controls="accord-password">
+                    Password
+                  </button>
+                </h2>
+                <div id="accord-password" class="accordion-collapse collapse show" aria-labelledby="Password-Headeng"
+                  data-bs-parent="#accord-password-parent">
+                  <div class="accordion-body">
+                    <div class="row gx-2 gy-2">
+                      <div class="col-6">
+                        <div class="input-group input-group-sm mb-3">
+                          <input [type]="fieldToggleService.fieldTextType ? 'text' : 'password'"
+                            class="form-control shadow-sm" placeholder="Old Password" formControlName="oldPassword"
+                            [ngClass]="{ 'is-invalid': g['oldPassword'].touched && g['oldPassword'].errors }">
+                          <span type="button" class="input-group-text" id="basic-addon2"
+                            (click)="toggleFieldTextType()">
+                            <i class="bi" [ngClass]="{
+                                                                'bi-eye-slash': !fieldToggleService.fieldTextType,
+                                                                'bi-eye': fieldToggleService.fieldTextType
+                                                              }"></i>
+                          </span>
+                        </div>
+                        <div class="input-group input-group-sm mb-3">
+                          <input [type]="fieldToggleService.fieldTextType ? 'text' : 'password'"
+                            class="form-control shadow-sm" placeholder="New Password" formControlName="newPassword"
+                            [ngClass]="{ 'is-invalid': g['newPassword'].touched && g['newPassword'].errors }">
+                          <span type="button" class="input-group-text" id="basic-addon2"
+                            (click)="toggleFieldTextType()">
+                            <i class="bi" [ngClass]="{
+                                                                'bi-eye-slash': !fieldToggleService.fieldTextType,
+                                                                'bi-eye': fieldToggleService.fieldTextType
+                                                              }"></i>
+                          </span>
+                        </div>
+                        <div class="input-group input-group-sm mb-3">
+                          <input [type]="fieldToggleService.fieldTextType ? 'text' : 'password'"
+                            class="form-control shadow-sm" placeholder="Confirm New Password"
+                            formControlName="confirmPassword"
+                            [ngClass]="{ 'is-invalid': g['confirmPassword'].touched && g['confirmPassword'].errors }">
+                          <span type="button" class="input-group-text" id="basic-addon2"
+                            (click)="toggleFieldTextType()">
+                            <i class="bi" [ngClass]="{
+                                                                'bi-eye-slash': !fieldToggleService.fieldTextType,
+                                                                'bi-eye': fieldToggleService.fieldTextType
+                                                              }"></i>
+                          </span>
+                          <div *ngIf="g['confirmPassword'].touched && g['confirmPassword'].errors"
+                            class="invalid-feedback">
+                            <div *ngIf="g['confirmPassword'].errors['matching']">
+                              Confirm Password does not match
+                            </div>
+                          </div>
+                        </div>
+                        <button type=" submit" class="btn btn-sm shadow-sm btn-primary w-100"
+                          [disabled]="passwordChangeForm.invalid">
+                          <div *ngIf="!passwordChangeForm_loading">Update Password
+                          </div>
+                          <div *ngIf="passwordChangeForm_loading" class="spinner-grow spinner-grow-sm text-warning"
+                            role="status">
+                          </div>
+                        </button>
+                      </div>
+                      <div class="col-6">
+                        <ul>
+                          <li>Password has to
+                            be between 8 to 15 character long
+                          </li>
+                          <li>At least one uppercase letter</li>
+                          <li>At least one number</li>
+                          <!-- <li>At least one special character (@$!%*?&)</li> -->
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="col-sm-5" *ngIf="authenticationService.currentUserRole()=='ADMIN'">
+          <div class="accordion" id="accordion-coompany-logo-parent">
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingTwo">
+                <button class="accordion-button shadow-none" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#accord-clinic-logo" aria-expanded="true" aria-controls="accord-clinic-logo">
+                  clinic Logo
+                </button>
+              </h2>
+              <div id="accord-clinic-logo" class="accordion-collapse collapse show" aria-labelledby="headingTwo"
+                data-bs-parent="#accordion-coompany-logo-parent">
+                <div class="accordion-body d-flex justify-content-center">
+                  <div class="profile-picture">
+                    <img [src]="clinicLogoUrl" alt="mdo" width="100" height="100" class="rounded-circle p-0">
+                    <div class="overlay" (click)="displayCompnayLogoDialog()" type="button">
+                      <i class="bi bi-camera-fill"></i>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="user_loading">
+      <div class="row mb-2">
+        <div class="col-12 d-flex justify-content-center">
+          <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+          </div>
+        </div>
+      </div>
+      <div class="row mb-2">
+        <div class="col-12 d-flex justify-content-center fs-4">
+          Please Wait, fetching your info...
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<p-dialog header="Profile Picture" [draggable]="false" [resizable]="false" [closable]="true"
+  [(visible)]="showProfilePictureDialog" [modal]="true" [style]="{width: 'auto'}" (onHide)="hideProfilePictureDialog()">
+  <div class="rounded-circle d-flex justify-content-center align-items-center mb-3 border-0">
+    <img [src]="imageUrl" class="rounded-circle" width="200px" height="200px">
+  </div>
+  <input #profile class="form-control form-control-sm shadow-sm mb-3" type="file" accept="image/*" id="formFile"
+    (change)="showPreview($event)">
+  <button class="btn btn-sm btn-primary shadow-sm w-100" (click)="uploadProfilePicture()">
+    <div *ngIf="!imageUploading">Upload</div>
+    <div *ngIf="imageUploading" class="spinner-border spinner-border-sm" role="status">
+    </div>
+  </button>
+</p-dialog>
+
+
+<p-dialog header="Compnay Logo" [draggable]="false" [resizable]="false" [closable]="true"
+  [(visible)]="showCompnayLogoDialog" [modal]="true" [style]="{width: 'auto'}" (onHide)="hideCompnayLogoDialog()">
+  <div class="rounded-circle d-flex justify-content-center align-items-center mb-3 border-0">
+    <img [src]="clinicLogoUrl" class="rounded-circle" width="200px" height="200px">
+  </div>
+  <input #clinic class="form-control form-control-sm shadow-sm mb-3" type="file" accept="image/*" id="formFile"
+    (change)="showLogoPreview($event)">
+  <button class="btn btn-sm btn-primary shadow-sm w-100" (click)="uploadclinicLogo()">
+    <div *ngIf="!clinicLogoUploading">Upload</div>
+    <div *ngIf="clinicLogoUploading" class="spinner-border spinner-border-sm" role="status">
+    </div>
+  </button>
+</p-dialog>
