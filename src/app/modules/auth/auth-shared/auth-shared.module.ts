@@ -15,7 +15,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { TableModule } from 'primeng/table';
 
 import { DialogService } from 'primeng/dynamicdialog';
-
+import { AccordionModule } from 'primeng/accordion';
 
 @NgModule({
   declarations: [
@@ -37,12 +37,13 @@ import { DialogService } from 'primeng/dynamicdialog';
     ReactiveFormsModule,
     TableModule,
     ConfirmDialogModule,
-    TooltipModule
+    TooltipModule,
+    AccordionModule
   ],
   exports: [
      HeaderComponent,
      SidebarComponent,
-     SidebarToggleComponent
+     SidebarToggleComponent,
   ],
   providers: [ConfirmationService, DialogService]
 })
