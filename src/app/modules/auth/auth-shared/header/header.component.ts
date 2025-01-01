@@ -25,7 +25,7 @@ export class HeaderComponent implements OnInit {
   role!: string
   theme!: string;
 
-  imageUrl: any = "assets/user.svg";
+  imageUrl: any = "assets/user.jpg";
   imageUrlSub!: Subscription
 
   companyLogoUrl: any = "assets/company.svg";
@@ -81,7 +81,7 @@ export class HeaderComponent implements OnInit {
 
 
   getUserprofileImage() {
-    this.imageUrl = localStorage.getItem("userprofileImage") ? this.sanitizer.bypassSecurityTrustUrl(localStorage.getItem("userprofileImage")!) : "assets/user.svg"
+    this.imageUrl = localStorage.getItem("userprofileImage") ? this.sanitizer.bypassSecurityTrustUrl(localStorage.getItem("userprofileImage")!) : "assets/user.jpg"
     this.imageUrlSub = this.uploadDownloadService.getBinaryImage(this.clinicId, this.userId).subscribe({
       next: (res: any) => {
         localStorage.setItem('userprofileImage', res.response);
@@ -89,7 +89,7 @@ export class HeaderComponent implements OnInit {
       },
       error: (err) => {
         if (err.status == 404) {
-          this.imageUrl = "assets/user.svg";
+          this.imageUrl = "assets/user.jpg";
         }
       }
     })

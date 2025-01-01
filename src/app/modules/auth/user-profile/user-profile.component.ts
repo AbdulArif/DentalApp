@@ -33,7 +33,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
 
   showProfilePictureDialog: boolean = false
   fileToUpload!: File;
-  imageUrl: any = "assets/user.svg"
+  imageUrl: any = "assets/user.jpg"
   imageUploading: boolean = false;
   imageUploadedSub!: Subscription
   imageUrlSub!: Subscription
@@ -125,7 +125,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   }
 
   getUserprofileImage() {
-    this.imageUrl = localStorage.getItem("userprofileImage") ? this.sanitizer.bypassSecurityTrustUrl(localStorage.getItem("userprofileImage")!) : "assets/user.svg"
+    this.imageUrl = localStorage.getItem("userprofileImage") ? this.sanitizer.bypassSecurityTrustUrl(localStorage.getItem("userprofileImage")!) : "assets/user.jpg"
     this.imageUrlSub = this.uploadDownloadService.getBinaryImage(this.clinicId, this.userId).subscribe({
       next: (res: any) => {
         localStorage.setItem('userprofileImage', res.response);
@@ -133,7 +133,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
       },
       error: (err: any) => {
         if (err.status == 404) {
-          this.imageUrl = "assets/user.svg";
+          this.imageUrl = "assets/user.jpg";
         }
       }
     })
