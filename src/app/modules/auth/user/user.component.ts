@@ -126,32 +126,32 @@ export class UserComponent implements OnInit {
     );
   }
   GetAvailableMenus() {
-    // this.menuService.GetAvailableMenus().subscribe({
-    //   next: (res: any[]) => {
-    //     // // console.log(res)
-    //     res.forEach((menuGroup, index) => {
-    //       res[index].checked = false
-    //       if (menuGroup.mainMenus.length > 0) {
-    //         res[index].haveSubMenuIcon = true
-    //       }
-    //       var _mainMenus: any[] = menuGroup.mainMenus
-    //       _mainMenus.forEach((mainMenu, index_m) => {
-    //         _mainMenus[index_m].checked = false
-    //         if (mainMenu.subMenus.length > 0) {
-    //           // // console.log(mainMenu.subMenus)
-    //           _mainMenus[index_m].haveSubMenuIcon = true
-    //         }
-    //         var _subMenus: any[] = mainMenu.subMenus
-    //         _subMenus.forEach((subMenu, index_s) => {
-    //           _subMenus[index_s].checked = false
-    //         });
-    //       });
-    //     });
-    //     this.menuGroups = res;
-    //     // // console.log(this.menuGroups)
-    //   },
-    //   error: (err) => { }
-    // })
+    this.menuService.GetAvailableMenus().subscribe({
+      next: (res: any[]) => {
+        // // console.log(res)
+        res.forEach((menuGroup, index) => {
+          res[index].checked = false
+          if (menuGroup.mainMenus.length > 0) {
+            res[index].haveSubMenuIcon = true
+          }
+          var _mainMenus: any[] = menuGroup.mainMenus
+          _mainMenus.forEach((mainMenu, index_m) => {
+            _mainMenus[index_m].checked = false
+            if (mainMenu.subMenus.length > 0) {
+              // // console.log(mainMenu.subMenus)
+              _mainMenus[index_m].haveSubMenuIcon = true
+            }
+            var _subMenus: any[] = mainMenu.subMenus
+            _subMenus.forEach((subMenu, index_s) => {
+              _subMenus[index_s].checked = false
+            });
+          });
+        });
+        this.menuGroups = res;
+        // // console.log(this.menuGroups)
+      },
+      error: (err) => { }
+    })
   }
   display: boolean = false
   enablePass: boolean = false
