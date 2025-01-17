@@ -32,7 +32,7 @@ export class PrescriptionComponent implements OnInit {
     this.clinicName = this.authenticationService.clinicName();
     this.clinicId = this.authenticationService.clinicId()
     this.userId = this.authenticationService.currentUserId();
-    this.getUser();
+    // this.getUser();
     this.GetMyPatient();
     this.patientData = history.state.data;
     this.patientAge  = await this.calculateAge(this.patientData.dateOfBirth)
@@ -47,20 +47,20 @@ export class PrescriptionComponent implements OnInit {
   user_loading: boolean = false
   userId!: string
 
-  getUser() {
-    this.user_loading = true
-    this.userSub = this.userService.GetUser(this.userId).subscribe({
-      next: (res) => {
-        console.log("GetUser Value:", res)
-        this.user = res;
-        this.user_loading = false
-      },
-      error: (err: any) => {
-        this.user_loading = false
-      }
-    })
+  // getUser() {
+  //   this.user_loading = true
+  //   this.userSub = this.userService.GetUser(this.userId).subscribe({
+  //     next: (res) => {
+  //       console.log("GetUser Value:", res)
+  //       this.user = res;
+  //       this.user_loading = false
+  //     },
+  //     error: (err: any) => {
+  //       this.user_loading = false
+  //     }
+  //   })
 
-  }
+  // }
 
   patient_loading: boolean = false
   patients: any;

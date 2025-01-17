@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, lastValueFrom, Observable } from 'rxjs';
@@ -38,7 +38,21 @@ export class AuthenticationService {
       .pipe(map((user: any) => {
         localStorage.setItem('currentUser', JSON.stringify(user));
         this.currentUserSubject.next(user);
-        this.decodeJwt(user.token);
+        // const decodedToken = this.decodeJwt(user.token);
+        // console.log(decodedToken)
+        if (user) {
+          // console.log(user)
+          this.getLoggedinUserInfo(user.email).subscribe({
+            next: (res: any) => {
+              localStorage.setItem('currentUserInfo', JSON.stringify(res))
+              // return res
+            },
+            error: (err: any) => {
+              localStorage.clear();
+              // return err
+            }
+          })
+        }
         return user;
       }));
   }
@@ -53,18 +67,29 @@ export class AuthenticationService {
   //     }));
   // }
   login(model: LoginBindingModel): Promise<any> {
-    console.log("url:",environment.apiUrl)
+    console.log("url:", environment.apiUrl)
     return lastValueFrom(
       this.http.post(`${environment.apiUrl}/api/Account/Login`, model)
         .pipe(map((user: any) => {
           // Save user to local storage
           localStorage.setItem('currentUser', JSON.stringify(user));
-          // console.log(user)
+          console.log(user)
           // Update currentUserSubject
           this.currentUserSubject.next(user);
-
           // Decode the JWT token
-          this.decodeJwt(user.accessToken);
+          // const decodedToken = this.decodeJwt(user.accessToken);
+          if (user) {
+            this.getLoggedinUserInfo(user.email).subscribe({
+              next: (res: any) => {
+                localStorage.setItem('currentUserInfo', JSON.stringify(res))
+                // return res
+              },
+              error: (err: any) => {
+                localStorage.clear();
+                // return err
+              }
+            })
+          }
 
           return user;
         }))
@@ -86,11 +111,21 @@ export class AuthenticationService {
       window.location.reload();
     })
   }
-
+  getLoggedinUserInfo(email: string): Observable<any> {
+    const options = {
+      headers: new HttpHeaders().append('Content-Type', 'application/json'),
+      params: new HttpParams().append('Email', email)
+    }
+    return this.http.get<any>(`${environment.apiUrl}/api/Account/GetLoggedinUserInfo`, options)
+  }
   decodeJwt(token: string) {
-    if (!token) {
-      // console.error("Invalid token provided to decodeJwt");
-      return null;
+    if (token) {
+      var base64Url = token.split('.')[1];
+      var base64 = base64Url.replace('-', '+').replace('_', '/');
+      var jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+      }).join(''));
+      return JSON.parse(jsonPayload);
     }
 
     try {

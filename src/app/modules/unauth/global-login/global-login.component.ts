@@ -57,7 +57,7 @@ export class GlobalLoginComponent implements OnInit {
     this.loginForm.patchValue({
       loginDateTime: new Date().toISOString()
     })
-    console.log(this.loginForm.value)
+    // console.log(this.loginForm.value)
     this.authenticationService.globalLogin(this.loginForm.value).pipe(first()).subscribe(
       {
         next: (data) => {
