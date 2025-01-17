@@ -4,9 +4,9 @@
             <div class="w-full sm:w-3/5 md:w-3/4 lg:w-3/5 xl:w-1/5 div-height">
                 <div class="flex justify-center pl-8 py-2">
                     <div class="float-1 ">
-                        <h1 class="text-2xl italic font-extrabold tracking-widest text-indigo-500">xyz DENTAL CARE
+                        <h1 class="text-2xl italic font-extrabold tracking-widest text-indigo-500">{{clinicName}}
                         </h1>
-                        <p class="text-sm font-bold"> DR. ANIL ROy (B.D.S) </p>
+                        <p class="text-sm font-bold"> {{user.firstName}} {{user.lastName}} </p>
                         <div class="flex flex-row">
                             <div class="text-xs mr-2"> REG NO:</div>
                             <div class="text-xs"> 5542A(WBDC) </div>
@@ -38,17 +38,17 @@
                 <div class="flex flex-col justify-between p-4">
                     <div class="flex flex-row">
                         <div class="mr-2"> Patient's Name: </div>
-                        <div class="text-center"> xyz deo.</div>
+                        <div class="text-center">{{patientData.fullName}} </div>
                     </div>
                     <div class="flex flex-row">
                         <div class="flex-shrink"> Gender: </div>
                         <div class="flex-1"> Male</div>
                         <div class="flex-shrink"> Age: </div>
-                        <div class="flex-1"> 29</div>
+                        <div class="flex-1"> {{patientAge}}</div>
                         <div class="flex-shrink"> Address: </div>
-                        <div class="flex-1"> Kanksa</div>
+                        <div class="flex-1"> {{patientData.address}}</div>
                         <div class="flex-shrink"> Date: </div>
-                        <div class="flex-1"> 17-10-23</div>
+                        <div class="flex-1"> {{patientData.addedDate}}</div>
                     </div>
                 </div>
                 <div class="w-full h-0.5 bg-indigo-500"></div>

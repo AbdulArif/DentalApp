@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { MenuItem } from 'primeng/api';
 import { Subscription } from 'rxjs';
@@ -33,6 +34,7 @@ export class PatientComponent implements OnInit {
     private authenticationService: AuthenticationService,
     private patientService: PatientService,
     public tieldToggleService: FieldToggleService,
+    public router : Router,
   ) {
 
   }
@@ -46,6 +48,7 @@ export class PatientComponent implements OnInit {
     this.GetMyPatient();
     this.items = [
       { label: 'View/Edit', icon: 'bi bi-pencil-square', command: () => this.viewPatient(this.selectedPatient) },
+      { label: 'Create Prescreption', icon: 'bi bi-prescription2', command: () => this.navigateToPrescreption(this.selectedPatient) },
       { label: 'Delete', icon: 'bi bi-trash', command: () => this.DeletePatient(this.selectedPatient) }
     ]
     this.buildCreatePatientForm();
@@ -150,7 +153,10 @@ export class PatientComponent implements OnInit {
     this.tieldToggleService.toggleField();
   }
 
-
+  navigateToPrescreption(patient: any): void{
+    // console.log("Selected user :", patient)
+   this.router.navigate(['/auth/prescription'], { state: { data: patient } })
+  }
   viewPatient(patient: any): void {
     console.log("Selected user :", patient)
     this.createPatientForm.patchValue({
