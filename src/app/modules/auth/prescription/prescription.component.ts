@@ -29,38 +29,25 @@ export class PrescriptionComponent implements OnInit {
   ) { }
 
   async ngOnInit(): Promise<void> {
-    this.clinicName = this.authenticationService.clinicName();
-    this.clinicId = this.authenticationService.clinicId()
-    this.userId = this.authenticationService.currentUserId();
-    // this.getUser();
+    this.getCurrentUserInfo();
     this.GetMyPatient();
     this.patientData = history.state.data;
     this.patientAge  = await this.calculateAge(this.patientData.dateOfBirth)
-
-   console.log(this.patientAge);
-   
+   console.log(this.patientAge);   
   }
 
 
-  user: any;
-  userSub!: Subscription;
-  user_loading: boolean = false
+  userName!: string;
   userId!: string
-
-  // getUser() {
-  //   this.user_loading = true
-  //   this.userSub = this.userService.GetUser(this.userId).subscribe({
-  //     next: (res) => {
-  //       console.log("GetUser Value:", res)
-  //       this.user = res;
-  //       this.user_loading = false
-  //     },
-  //     error: (err: any) => {
-  //       this.user_loading = false
-  //     }
-  //   })
-
-  // }
+  role!: string
+  
+  getCurrentUserInfo() {
+    this.userName = this.authenticationService.currentUserFirstName() + ' ' + this.authenticationService.currentUserLastName();
+    this.role = this.authenticationService.currentUserRole();
+    this.clinicName = this.authenticationService.clinicName();
+    this.clinicId = this.authenticationService.clinicId()
+    this.userId = this.authenticationService.currentUserId();
+  }
 
   patient_loading: boolean = false
   patients: any;

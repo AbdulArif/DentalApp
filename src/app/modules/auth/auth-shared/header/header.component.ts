@@ -6,6 +6,7 @@ import { AuthenticationService } from 'src/app/services/core/authentication.serv
 import { SidebarService } from 'src/app/services/shared/sidebar.service';
 import { ThemeService } from 'src/app/theme/theme.service';
 import { DomSanitizer } from '@angular/platform-browser';
+import { PrimeNGConfig } from 'primeng/api';
 
 
 @Component({
@@ -38,6 +39,8 @@ export class HeaderComponent implements OnInit {
     public uploadDownloadService: UploadDownloadService,
     private router: Router,
     public sanitizer: DomSanitizer,
+    private primengConfig: PrimeNGConfig,
+
   ) {
     // this.onlineStatusSub = this.onlineStatusService.status.subscribe((status: OnlineStatusType) => { this.status = status });
   }
@@ -47,9 +50,13 @@ export class HeaderComponent implements OnInit {
     this.userEmail = this.authenticationService.currentUserName();
     this.clinicName = this.authenticationService.clinicName();
     this.clinicId = this.authenticationService.clinicId();
-    this.role = this.authenticationService.currentUserRole();
-    this.userName = this.authenticationService.currentUserFirstName() + ' ' + this.authenticationService.currentUserLastName();
+    // this.role = this.authenticationService.currentUserRole();
+    // this.userName = this.authenticationService.currentUserFirstName() + ' ' + this.authenticationService.currentUserLastName();
     // $('[data-bs-toggle="tooltip"]').tooltip();
+    this.primengConfig.ripple = true;
+
+    this.getCurrentUserInfo()
+
     this.getCompanyLogo();
     this.getUserprofileImage()
     this.screenWidth = window.innerWidth;
@@ -60,6 +67,10 @@ export class HeaderComponent implements OnInit {
     }
 
 
+  }
+  getCurrentUserInfo() {
+    this.userName = this.authenticationService.currentUserFirstName() + ' ' + this.authenticationService.currentUserLastName();
+    this.role = this.authenticationService.currentUserRole();
   }
   ngOnDestroy() {
     // if (this.onlineStatusSub) {
