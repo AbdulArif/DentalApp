@@ -62,13 +62,18 @@
               placeholder="Email address" formControlName="email"
               [ngClass]="{ 'is-invalid': f['email'].touched && f['email'].errors }">
           </div>
-          <div>
+          <div class="mt-2 relative">
             <label for="password" class="sr-only">Password</label>
-            <input id="password" name="password" type="password" autocomplete="current-password" required
+            <input id="password" name="password" autocomplete="current-password" required
+              [type]="fieldToggleService.fieldTextType ? 'text' : 'password'"
               class="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
               placeholder="Password" formControlName="password"
               [ngClass]="{ 'is-invalid': f['password'].touched && f['password'].errors }">
-
+            <span class="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer" id="basic-addon2"
+              (click)="toggleFieldTextType()" style="cursor: pointer;">
+              <i class="bi"
+                [ngClass]="{'bi-eye-slash': !fieldToggleService.fieldTextType, 'bi-eye': fieldToggleService.fieldTextType}"></i>
+            </span>
           </div>
         </div>
 
