@@ -13,28 +13,28 @@
 
     <div id="menu-area">
         <div class="px-2" id="add-on" *ngFor="let menuGroup of menuGroups">
-            <div class="nav-lnk text-decoration-none d-flex py-2" data-bs-toggle="collapse"
+            <div class="nav-lnk text-decoration-none d-flex py-2" 
                 [attr.data-bs-target]="'#'+menuGroup.bsTargetId" role="button" [attr.aria-expanded]="expand"
                 [attr.aria-controls]="menuGroup.bsTargetId">
                 <i class="bi {{menuGroup.icon}} fw-semibold me-2"></i>
                 <span class="me-auto fw-semibold">{{menuGroup.menuGroupName}}</span>
                 <i class="bi small bi-chevron-down toggle-caret"></i>
             </div>
-            <ul class="collapse list-unstyled" id="{{menuGroup.bsTargetId}}" [ngClass]="expand==true?'show':''">
+            <ul class=" list-unstyled" id="{{menuGroup.bsTargetId}}" [ngClass]="expand==true?'show':''">
                 <li *ngFor="let mainMenu of menuGroup.mainMenus">
                     <a *ngIf="mainMenu.routerLink!=null" class="text-decoration-none  d-block ps-3 py-1"
                         [routerLink]="mainMenu.routerLink" routerLinkActive="active" (click)="onTap()">
                         <i class="bi {{mainMenu.icon}} me-2"></i>{{mainMenu.mainMenuName}}
                     </a>
                     <div *ngIf="mainMenu.routerLink==null" class="ps-3 py-1">
-                        <div class="nav-lnk text-decoration-none d-flex py-2" data-bs-toggle="collapse"
+                        <div class="nav-lnk text-decoration-none d-flex py-2" 
                             [attr.data-bs-target]="'#'+mainMenu.bsTargetId" role="button" [attr.aria-expanded]="expand"
                             [attr.aria-controls]="mainMenu.bsTargetId">
                             <i class="bi {{mainMenu.icon}} me-2"></i>
                             <span class="me-auto">{{mainMenu.mainMenuName}}</span>
                             <i class="bi small bi-chevron-down toggle-caret"></i>
                         </div>
-                        <ul class="collapse list-unstyled" id="{{mainMenu.bsTargetId}}"
+                        <ul class=" list-unstyled" id="{{mainMenu.bsTargetId}}"
                             [ngClass]="expand==true?'show':''">
                             <li *ngFor="let subMenu of mainMenu.subMenus">
                                 <a class="text-decoration-none d-block ps-3 py-1" [routerLink]="subMenu.routerLink"
@@ -48,27 +48,27 @@
             </ul>
         </div>
         <div class="px-2" id="installed" *ngIf="role!=='USER'">
-            <div class="nav-lnk text-decoration-none d-flex py-2" data-bs-toggle="collapse" data-bs-target="#admin"
+            <div class="nav-lnk text-decoration-none d-flex py-2"  data-bs-target="#admin"
                 role="button" [attr.aria-expanded]="expand" aria-controls="admin">
                 <i class="bi bi-person-fill-gear fw-semibold me-2"></i>
                 <span class="me-auto fw-semibold">Admin</span>
                 <i class="bi small bi-chevron-down toggle-caret"></i>
             </div>
-            <ul class="collapse list-unstyled" id="admin" [ngClass]="expand==true?'show':''">
+            <ul class=" list-unstyled" id="admin" [ngClass]="expand==true?'show':''">
                 <li>
                     <a class="text-decoration-none  d-block ps-3 py-1" routerLink="./addon" routerLinkActive="active">
                         <i class="bi bi-bag-plus-fill me-2"></i>Add-On
                     </a>
                 </li>
                 <li>
-                    <div class="nav-lnk text-decoration-none d-flex ps-3 py-2" data-bs-toggle="collapse"
+                    <div class="nav-lnk text-decoration-none d-flex ps-3 py-2" 
                         data-bs-target="#connection" role="button" [attr.aria-expanded]="expand"
                         aria-controls="connection">
                         <i class="bi bi-plugin me-2"></i>
                         <span class="me-auto">Connections</span>
                         <i class="bi small bi-chevron-down toggle-caret"></i>
                     </div>
-                    <ul class="collapse list-unstyled ps-3" id="connection" [ngClass]="expand==true?'show':''">
+                    <ul class=" list-unstyled ps-3" id="connection" [ngClass]="expand==true?'show':''">
                         <li>
                             <a class="text-decoration-none  d-block ps-3 py-1" routerLink="./connection/sql-connection"
                                 routerLinkActive="active"><i class="bi bi-blockquote-left me-2"></i>SQL Connection</a>
@@ -80,12 +80,6 @@
                         </li>
                     </ul>
                 </li>
-                <!-- <li>
-                <a class="text-decoration-none  d-block ps-3 py-1" routerLink="./doc-ai/doc-activities"
-                  routerLinkActive="active">
-                  <i class="bi bi-activity me-2"></i>Doc Activities
-                </a>
-              </li> -->
                 <li>
                     <a class="text-decoration-none d-block ps-3 py-1" routerLink="./payment" routerLinkActive="active">
                         <i class="bi bi-currency-dollar me-2"></i>Payment
@@ -95,10 +89,6 @@
                     <a class="text-decoration-none d-block ps-3 py-1" routerLink="./billing" routerLinkActive="active">
                         <i class="bi bi-cash-stack me-2"></i>Billing
                     </a>
-                </li>
-                <li>
-                    <a class="text-decoration-none  d-block ps-3 py-1" routerLink="./user" routerLinkActive="active">
-                        <i class="bi bi-people-fill me-2"></i>Users</a>
                 </li>
                 <li>
                     <a class="text-decoration-none  d-block ps-3 py-1" routerLink="./activities"
@@ -113,6 +103,44 @@
               </li> -->
             </ul>
         </div>
+
+        <!-- <div *ngIf="role!=='USER'" class="d-flex flex-column flex-shrink-0 p-3" style="width: 250px; height: 100vh;">
+            <ul class="nav nav-pills flex-column mb-auto">
+                <li class="nav-item">
+                    <a href="#" class="nav-link text-dark">
+                        <i class="bi bi-person-gear me-2"></i> Admin
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link text-dark">
+                        <i class="bi bi-box me-2"></i> Add-On
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link text-dark">
+                        <i class="bi bi-cash me-2"></i> Payment
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link text-dark">
+                        <i class="bi bi-receipt me-2"></i> Billing
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link text-dark">
+                        <i class="bi bi-people me-2"></i> Users
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link text-dark">
+                        <i class="bi bi-graph-up me-2"></i> User Activities
+                    </a>
+                </li>
+            </ul>
+        </div> -->
+
+
+
         <div class="px-2" id="globaladmin">
             <ul class="list-unstyled">
                 <li *ngIf="role=='GlobalAdmin'">
